@@ -1,0 +1,9 @@
+type Trip @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  tripName: String!
+  destination: String!
+  startDate: AWSDate!
+  endDate: AWSDate!
+  tripImageUrl: String
+  tripImageKey: String
+}
