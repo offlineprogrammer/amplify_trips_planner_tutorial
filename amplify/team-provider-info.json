@@ -17,6 +17,9 @@
       },
       "api": {
         "amplifytripsplanner": {}
+      },
+      "storage": {
+        "s37d9e620f": {}
       }
     }
   }
