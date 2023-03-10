@@ -4,4 +4,7 @@ enum AppRoute {
   edittrip,
   pasttrips,
   pasttrip,
+  activity,
+  addactivity,
+  editactivity,
 }

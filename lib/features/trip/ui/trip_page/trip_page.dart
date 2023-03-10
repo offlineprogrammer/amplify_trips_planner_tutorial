@@ -6,7 +6,7 @@ import 'package:amplify_trips_planner/common/navigation/router/routes.dart';
 import 'package:amplify_trips_planner/features/trip/data/trips_repository.dart';
 import 'package:amplify_trips_planner/common/utils/colors.dart' as constants;
 import 'package:amplify_trips_planner/features/trip/ui/trip_page/selected_trip_card.dart';
-
+import 'package:amplify_trips_planner/features/activity/ui/activities_list/activities_list.dart';
 import 'package:amplify_trips_planner/common/ui/the_navigation_drawer.dart';
 
 class TripPage extends ConsumerWidget {
@@ -40,7 +40,12 @@ class TripPage extends ConsumerWidget {
       drawer: const TheNavigationDrawer(),
       floatingActionButton: tripValue.when(
         data: (trip) => FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            context.goNamed(
+              AppRoute.addactivity.name,
+              params: {'id': tripId},
+            );
+          },
           backgroundColor: const Color(constants.primaryColorDark),
           child: const Icon(Icons.add),
         ),
@@ -79,6 +84,11 @@ class TripPage extends ConsumerWidget {
                   const SizedBox(
                     height: 8,
                   ),
+                  Expanded(
+                    child: ActivitiesList(
+                      trip: trip,
+                    ),
+                  )
                 ],
               ),
         error: (e, st) => Center(

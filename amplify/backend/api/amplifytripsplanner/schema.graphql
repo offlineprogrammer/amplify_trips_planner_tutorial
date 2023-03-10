@@ -6,4 +6,19 @@ type Trip @model @auth(rules: [{ allow: owner }]) {
   endDate: AWSDate!
   tripImageUrl: String
   tripImageKey: String
+  Activities: [Activity] @hasMany(indexName: "byTrip", fields: ["id"])
 }
+
+type Activity @model @auth(rules: [{allow: owner}]) {
+  id: ID!
+  activityName: String!
+  tripID: ID! @index(name: "byTrip", sortKeyFields: ["activityName"])
+  trip: Trip! @belongsTo(fields: ["tripID"])
+  activityImageUrl: String
+  activityImageKey: String
+  activityDate: AWSDate!
+  activityTime: AWSTime
+  category: ActivityCategory!
+}
+
+enum ActivityCategory { Flight, Lodging, Meeting, Restaurant }

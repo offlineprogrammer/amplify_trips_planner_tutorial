@@ -21,22 +21,21 @@
 
 import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
 
-/** This is an auto generated class representing the Trip type in your schema. */
+/** This is an auto generated class representing the Activity type in your schema. */
 @immutable
-class Trip extends Model {
-  static const classType = const _TripModelType();
+class Activity extends Model {
+  static const classType = const _ActivityModelType();
   final String id;
-  final String? _tripName;
-  final String? _destination;
-  final TemporalDate? _startDate;
-  final TemporalDate? _endDate;
-  final String? _tripImageUrl;
-  final String? _tripImageKey;
-  final List<Activity>? _Activities;
+  final String? _activityName;
+  final Trip? _trip;
+  final String? _activityImageUrl;
+  final String? _activityImageKey;
+  final TemporalDate? _activityDate;
+  final TemporalTime? _activityTime;
+  final ActivityCategory? _category;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -47,15 +46,15 @@ class Trip extends Model {
   @override
   String getId() => id;
   
-  TripModelIdentifier get modelIdentifier {
-      return TripModelIdentifier(
+  ActivityModelIdentifier get modelIdentifier {
+      return ActivityModelIdentifier(
         id: id
       );
   }
   
-  String get tripName {
+  String get activityName {
     try {
-      return _tripName!;
+      return _activityName!;
     } catch(e) {
       throw new AmplifyCodeGenModelException(
           AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
@@ -66,9 +65,9 @@ class Trip extends Model {
     }
   }
   
-  String get destination {
+  Trip get trip {
     try {
-      return _destination!;
+      return _trip!;
     } catch(e) {
       throw new AmplifyCodeGenModelException(
           AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
@@ -79,9 +78,17 @@ class Trip extends Model {
     }
   }
   
-  TemporalDate get startDate {
+  String? get activityImageUrl {
+    return _activityImageUrl;
+  }
+  
+  String? get activityImageKey {
+    return _activityImageKey;
+  }
+  
+  TemporalDate get activityDate {
     try {
-      return _startDate!;
+      return _activityDate!;
     } catch(e) {
       throw new AmplifyCodeGenModelException(
           AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
@@ -92,9 +99,13 @@ class Trip extends Model {
     }
   }
   
-  TemporalDate get endDate {
+  TemporalTime? get activityTime {
+    return _activityTime;
+  }
+  
+  ActivityCategory get category {
     try {
-      return _endDate!;
+      return _category!;
     } catch(e) {
       throw new AmplifyCodeGenModelException(
           AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
@@ -103,18 +114,6 @@ class Trip extends Model {
           underlyingException: e.toString()
           );
     }
-  }
-  
-  String? get tripImageUrl {
-    return _tripImageUrl;
-  }
-  
-  String? get tripImageKey {
-    return _tripImageKey;
-  }
-  
-  List<Activity>? get Activities {
-    return _Activities;
   }
   
   TemporalDateTime? get createdAt {
@@ -125,18 +124,18 @@ class Trip extends Model {
     return _updatedAt;
   }
   
-  const Trip._internal({required this.id, required tripName, required destination, required startDate, required endDate, tripImageUrl, tripImageKey, Activities, createdAt, updatedAt}): _tripName = tripName, _destination = destination, _startDate = startDate, _endDate = endDate, _tripImageUrl = tripImageUrl, _tripImageKey = tripImageKey, _Activities = Activities, _createdAt = createdAt, _updatedAt = updatedAt;
+  const Activity._internal({required this.id, required activityName, required trip, activityImageUrl, activityImageKey, required activityDate, activityTime, required category, createdAt, updatedAt}): _activityName = activityName, _trip = trip, _activityImageUrl = activityImageUrl, _activityImageKey = activityImageKey, _activityDate = activityDate, _activityTime = activityTime, _category = category, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Trip({String? id, required String tripName, required String destination, required TemporalDate startDate, required TemporalDate endDate, String? tripImageUrl, String? tripImageKey, List<Activity>? Activities}) {
-    return Trip._internal(
+  factory Activity({String? id, required String activityName, required Trip trip, String? activityImageUrl, String? activityImageKey, required TemporalDate activityDate, TemporalTime? activityTime, required ActivityCategory category}) {
+    return Activity._internal(
       id: id == null ? UUID.getUUID() : id,
-      tripName: tripName,
-      destination: destination,
-      startDate: startDate,
-      endDate: endDate,
-      tripImageUrl: tripImageUrl,
-      tripImageKey: tripImageKey,
-      Activities: Activities != null ? List<Activity>.unmodifiable(Activities) : Activities);
+      activityName: activityName,
+      trip: trip,
+      activityImageUrl: activityImageUrl,
+      activityImageKey: activityImageKey,
+      activityDate: activityDate,
+      activityTime: activityTime,
+      category: category);
   }
   
   bool equals(Object other) {
@@ -146,15 +145,15 @@ class Trip extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Trip &&
+    return other is Activity &&
       id == other.id &&
-      _tripName == other._tripName &&
-      _destination == other._destination &&
-      _startDate == other._startDate &&
-      _endDate == other._endDate &&
-      _tripImageUrl == other._tripImageUrl &&
-      _tripImageKey == other._tripImageKey &&
-      DeepCollectionEquality().equals(_Activities, other._Activities);
+      _activityName == other._activityName &&
+      _trip == other._trip &&
+      _activityImageUrl == other._activityImageUrl &&
+      _activityImageKey == other._activityImageKey &&
+      _activityDate == other._activityDate &&
+      _activityTime == other._activityTime &&
+      _category == other._category;
   }
   
   @override
@@ -164,14 +163,15 @@ class Trip extends Model {
   String toString() {
     var buffer = new StringBuffer();
     
-    buffer.write("Trip {");
+    buffer.write("Activity {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("tripName=" + "$_tripName" + ", ");
-    buffer.write("destination=" + "$_destination" + ", ");
-    buffer.write("startDate=" + (_startDate != null ? _startDate!.format() : "null") + ", ");
-    buffer.write("endDate=" + (_endDate != null ? _endDate!.format() : "null") + ", ");
-    buffer.write("tripImageUrl=" + "$_tripImageUrl" + ", ");
-    buffer.write("tripImageKey=" + "$_tripImageKey" + ", ");
+    buffer.write("activityName=" + "$_activityName" + ", ");
+    buffer.write("trip=" + (_trip != null ? _trip!.toString() : "null") + ", ");
+    buffer.write("activityImageUrl=" + "$_activityImageUrl" + ", ");
+    buffer.write("activityImageKey=" + "$_activityImageKey" + ", ");
+    buffer.write("activityDate=" + (_activityDate != null ? _activityDate!.format() : "null") + ", ");
+    buffer.write("activityTime=" + (_activityTime != null ? _activityTime!.format() : "null") + ", ");
+    buffer.write("category=" + (_category != null ? enumToString(_category)! : "null") + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
@@ -179,57 +179,54 @@ class Trip extends Model {
     return buffer.toString();
   }
   
-  Trip copyWith({String? tripName, String? destination, TemporalDate? startDate, TemporalDate? endDate, String? tripImageUrl, String? tripImageKey, List<Activity>? Activities}) {
-    return Trip._internal(
+  Activity copyWith({String? activityName, Trip? trip, String? activityImageUrl, String? activityImageKey, TemporalDate? activityDate, TemporalTime? activityTime, ActivityCategory? category}) {
+    return Activity._internal(
       id: id,
-      tripName: tripName ?? this.tripName,
-      destination: destination ?? this.destination,
-      startDate: startDate ?? this.startDate,
-      endDate: endDate ?? this.endDate,
-      tripImageUrl: tripImageUrl ?? this.tripImageUrl,
-      tripImageKey: tripImageKey ?? this.tripImageKey,
-      Activities: Activities ?? this.Activities);
+      activityName: activityName ?? this.activityName,
+      trip: trip ?? this.trip,
+      activityImageUrl: activityImageUrl ?? this.activityImageUrl,
+      activityImageKey: activityImageKey ?? this.activityImageKey,
+      activityDate: activityDate ?? this.activityDate,
+      activityTime: activityTime ?? this.activityTime,
+      category: category ?? this.category);
   }
   
-  Trip.fromJson(Map<String, dynamic> json)  
+  Activity.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
-      _tripName = json['tripName'],
-      _destination = json['destination'],
-      _startDate = json['startDate'] != null ? TemporalDate.fromString(json['startDate']) : null,
-      _endDate = json['endDate'] != null ? TemporalDate.fromString(json['endDate']) : null,
-      _tripImageUrl = json['tripImageUrl'],
-      _tripImageKey = json['tripImageKey'],
-      _Activities = json['Activities'] is List
-        ? (json['Activities'] as List)
-          .where((e) => e?['serializedData'] != null)
-          .map((e) => Activity.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
-          .toList()
+      _activityName = json['activityName'],
+      _trip = json['trip']?['serializedData'] != null
+        ? Trip.fromJson(new Map<String, dynamic>.from(json['trip']['serializedData']))
         : null,
+      _activityImageUrl = json['activityImageUrl'],
+      _activityImageKey = json['activityImageKey'],
+      _activityDate = json['activityDate'] != null ? TemporalDate.fromString(json['activityDate']) : null,
+      _activityTime = json['activityTime'] != null ? TemporalTime.fromString(json['activityTime']) : null,
+      _category = enumFromString<ActivityCategory>(json['category'], ActivityCategory.values),
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'tripName': _tripName, 'destination': _destination, 'startDate': _startDate?.format(), 'endDate': _endDate?.format(), 'tripImageUrl': _tripImageUrl, 'tripImageKey': _tripImageKey, 'Activities': _Activities?.map((Activity? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'activityName': _activityName, 'trip': _trip?.toJson(), 'activityImageUrl': _activityImageUrl, 'activityImageKey': _activityImageKey, 'activityDate': _activityDate?.format(), 'activityTime': _activityTime?.format(), 'category': enumToString(_category), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
-    'id': id, 'tripName': _tripName, 'destination': _destination, 'startDate': _startDate, 'endDate': _endDate, 'tripImageUrl': _tripImageUrl, 'tripImageKey': _tripImageKey, 'Activities': _Activities, 'createdAt': _createdAt, 'updatedAt': _updatedAt
+    'id': id, 'activityName': _activityName, 'trip': _trip, 'activityImageUrl': _activityImageUrl, 'activityImageKey': _activityImageKey, 'activityDate': _activityDate, 'activityTime': _activityTime, 'category': _category, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
-  static final QueryModelIdentifier<TripModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<TripModelIdentifier>();
+  static final QueryModelIdentifier<ActivityModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<ActivityModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
-  static final QueryField TRIPNAME = QueryField(fieldName: "tripName");
-  static final QueryField DESTINATION = QueryField(fieldName: "destination");
-  static final QueryField STARTDATE = QueryField(fieldName: "startDate");
-  static final QueryField ENDDATE = QueryField(fieldName: "endDate");
-  static final QueryField TRIPIMAGEURL = QueryField(fieldName: "tripImageUrl");
-  static final QueryField TRIPIMAGEKEY = QueryField(fieldName: "tripImageKey");
-  static final QueryField ACTIVITIES = QueryField(
-    fieldName: "Activities",
-    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Activity'));
+  static final QueryField ACTIVITYNAME = QueryField(fieldName: "activityName");
+  static final QueryField TRIP = QueryField(
+    fieldName: "trip",
+    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Trip'));
+  static final QueryField ACTIVITYIMAGEURL = QueryField(fieldName: "activityImageUrl");
+  static final QueryField ACTIVITYIMAGEKEY = QueryField(fieldName: "activityImageKey");
+  static final QueryField ACTIVITYDATE = QueryField(fieldName: "activityDate");
+  static final QueryField ACTIVITYTIME = QueryField(fieldName: "activityTime");
+  static final QueryField CATEGORY = QueryField(fieldName: "category");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Trip";
-    modelSchemaDefinition.pluralName = "Trips";
+    modelSchemaDefinition.name = "Activity";
+    modelSchemaDefinition.pluralName = "Activities";
     
     modelSchemaDefinition.authRules = [
       AuthRule(
@@ -245,49 +242,53 @@ class Trip extends Model {
         ])
     ];
     
+    modelSchemaDefinition.indexes = [
+      ModelIndex(fields: const ["tripID", "activityName"], name: "byTrip")
+    ];
+    
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Trip.TRIPNAME,
+      key: Activity.ACTIVITYNAME,
       isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Trip.DESTINATION,
+    modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
+      key: Activity.TRIP,
       isRequired: true,
+      targetNames: ['tripID'],
+      ofModelName: 'Trip'
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: Activity.ACTIVITYIMAGEURL,
+      isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Trip.STARTDATE,
+      key: Activity.ACTIVITYIMAGEKEY,
+      isRequired: false,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: Activity.ACTIVITYDATE,
       isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.date)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Trip.ENDDATE,
+      key: Activity.ACTIVITYTIME,
+      isRequired: false,
+      ofType: ModelFieldType(ModelFieldTypeEnum.time)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: Activity.CATEGORY,
       isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.date)
-    ));
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Trip.TRIPIMAGEURL,
-      isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Trip.TRIPIMAGEKEY,
-      isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
-      key: Trip.ACTIVITIES,
-      isRequired: false,
-      ofModelName: 'Activity',
-      associatedKey: Activity.TRIP
+      ofType: ModelFieldType(ModelFieldTypeEnum.enumeration)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
@@ -306,30 +307,30 @@ class Trip extends Model {
   });
 }
 
-class _TripModelType extends ModelType<Trip> {
-  const _TripModelType();
+class _ActivityModelType extends ModelType<Activity> {
+  const _ActivityModelType();
   
   @override
-  Trip fromJson(Map<String, dynamic> jsonData) {
-    return Trip.fromJson(jsonData);
+  Activity fromJson(Map<String, dynamic> jsonData) {
+    return Activity.fromJson(jsonData);
   }
   
   @override
   String modelName() {
-    return 'Trip';
+    return 'Activity';
   }
 }
 
 /**
  * This is an auto generated class representing the model identifier
- * of [Trip] in your schema.
+ * of [Activity] in your schema.
  */
 @immutable
-class TripModelIdentifier implements ModelIdentifier<Trip> {
+class ActivityModelIdentifier implements ModelIdentifier<Activity> {
   final String id;
 
-  /** Create an instance of TripModelIdentifier using [id] the primary key. */
-  const TripModelIdentifier({
+  /** Create an instance of ActivityModelIdentifier using [id] the primary key. */
+  const ActivityModelIdentifier({
     required this.id});
   
   @override
@@ -347,7 +348,7 @@ class TripModelIdentifier implements ModelIdentifier<Trip> {
   String serializeAsString() => serializeAsMap().values.join('#');
   
   @override
-  String toString() => 'TripModelIdentifier(id: $id)';
+  String toString() => 'ActivityModelIdentifier(id: $id)';
   
   @override
   bool operator ==(Object other) {
@@ -355,7 +356,7 @@ class TripModelIdentifier implements ModelIdentifier<Trip> {
       return true;
     }
     
-    return other is TripModelIdentifier &&
+    return other is ActivityModelIdentifier &&
       id == other.id;
   }
   
