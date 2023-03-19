@@ -7,4 +7,5 @@ enum AppRoute {
   activity,
   addactivity,
   editactivity,
+  profile,
 }

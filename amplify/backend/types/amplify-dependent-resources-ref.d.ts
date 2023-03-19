@@ -16,6 +16,15 @@ export type AmplifyDependentResourcesAttributes = {
       "UserPoolName": "string"
     }
   },
+  "function": {
+    "amplifytripsplanner4600aecaPostConfirmation": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    }
+  },
   "storage": {
     "s37d9e620f": {
       "BucketName": "string",

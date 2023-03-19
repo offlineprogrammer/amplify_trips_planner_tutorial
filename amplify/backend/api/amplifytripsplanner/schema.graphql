@@ -21,4 +21,26 @@ type Activity @model @auth(rules: [{allow: owner}]) {
   category: ActivityCategory!
 }
 
+
+
+type Profile
+  @model
+  @auth(
+    rules: [
+      { allow: private, provider: iam }
+      { allow: owner, operations: [read, update, create] }
+    ]
+  ) {
+  id: ID!
+  email: String!
+  firstName: String
+  lastName: String
+  homeCity: String
+  owner: String! 
+}
+
 enum ActivityCategory { Flight, Lodging, Meeting, Restaurant }
+
+
+
+
