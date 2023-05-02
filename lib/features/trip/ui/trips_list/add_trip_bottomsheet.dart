@@ -1,3 +1,4 @@
+import 'package:amplify_trips_planner/features/trip/controller/async_trips_list.dart';
 import 'package:amplify_trips_planner/features/trip/controller/trips_list_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -135,7 +136,7 @@ class AddTripBottomSheet extends HookConsumerWidget {
                     return;
                   }
                   if (currentState.validate()) {
-                    ref.read(tripsListControllerProvider).add(
+                    ref.read(asyncTripsProvider.notifier).addTrip(
                           name: tripNameController.text,
                           destination: destinationController.text,
                           startDate: startDateController.text,

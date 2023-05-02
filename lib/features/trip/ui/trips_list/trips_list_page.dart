@@ -1,6 +1,6 @@
+import 'package:amplify_trips_planner/features/trip/controller/async_trips_list.dart';
 import 'package:flutter/material.dart';
 
-import 'package:amplify_trips_planner/features/trip/data/trips_repository.dart';
 import 'package:amplify_trips_planner/features/trip/ui/trips_list/add_trip_bottomsheet.dart';
 
 import 'package:amplify_trips_planner/common/utils/colors.dart' as constants;
@@ -26,7 +26,7 @@ class TripsListPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tripsListValue = ref.watch(tripsListStreamProvider);
+    final tripsListValue = ref.watch(asyncTripsProvider);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

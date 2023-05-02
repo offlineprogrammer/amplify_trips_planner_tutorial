@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Amplify Trips Planner</string>
+	<string>Amplify Trips Planner Tutorial</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -13,7 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>amplify_trips_planner</string>
+	<string>amplify_trips_planner_tutorial</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -52,6 +52,6 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Some Description</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Some Description</string>		
+	<string>Some Description</string>	
 </dict>
 </plist>
