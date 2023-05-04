@@ -40,9 +40,12 @@ class AsyncTrips extends _$AsyncTrips {
     });
   }
 
-  Future<void> removeTrip(String tripId) async {
+  Future<void> removeTrip(Trip trip) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
+      final tripsRepository = ref.read(tripsRepositoryProvider);
+      await tripsRepository.delete(trip);
+
       return _fetchTrips();
     });
   }

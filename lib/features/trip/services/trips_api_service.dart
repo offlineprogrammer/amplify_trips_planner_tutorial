@@ -49,7 +49,13 @@ class TripsAPIService {
 
   Future<void> deleteTrip(Trip trip) async {
     try {
-      // await Amplify.DataStore.delete(trip);
+      print('deleteTrip: ${trip.tripName}');
+      final response = await Amplify.API
+          .mutate(
+            request: ModelMutations.delete(trip),
+          )
+          .response;
+      safePrint('Response: $response');
     } on Exception catch (error) {
       debugPrint(error.toString());
     }
