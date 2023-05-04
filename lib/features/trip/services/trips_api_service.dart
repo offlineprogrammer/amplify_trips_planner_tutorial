@@ -49,13 +49,11 @@ class TripsAPIService {
 
   Future<void> deleteTrip(Trip trip) async {
     try {
-      print('deleteTrip: ${trip.tripName}');
-      final response = await Amplify.API
+      await Amplify.API
           .mutate(
             request: ModelMutations.delete(trip),
           )
           .response;
-      safePrint('Response: $response');
     } on Exception catch (error) {
       debugPrint(error.toString());
     }
@@ -63,22 +61,11 @@ class TripsAPIService {
 
   Future<void> updateTrip(Trip updatedTrip) async {
     try {
-      // final tripsWithId = await Amplify.DataStore.query(
-      //   Trip.classType,
-      //   where: Trip.ID.eq(updatedTrip.id),
-      // );
-
-      // final oldTrip = tripsWithId.first;
-      // final newTrip = oldTrip.copyWith(
-      //   tripName: updatedTrip.tripName,
-      //   destination: updatedTrip.destination,
-      //   startDate: updatedTrip.startDate,
-      //   endDate: updatedTrip.endDate,
-      //   tripImageKey: updatedTrip.tripImageKey,
-      //   tripImageUrl: updatedTrip.tripImageUrl,
-      // );
-
-      // await Amplify.DataStore.save(newTrip);
+      await Amplify.API
+          .mutate(
+            request: ModelMutations.update(updatedTrip),
+          )
+          .response;
     } on Exception catch (error) {
       debugPrint(error.toString());
     }

@@ -1,5 +1,6 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_trips_planner/common/navigation/router/routes.dart';
+import 'package:amplify_trips_planner/features/trip/controller/async_trips_list.dart';
 import 'package:amplify_trips_planner/features/trip/controller/trip_controller.dart';
 import 'package:amplify_trips_planner/models/ModelProvider.dart';
 import 'package:flutter/material.dart';
@@ -176,10 +177,14 @@ class EditTripPage extends HookConsumerWidget {
                           endDate: TemporalDate(
                               DateTime.parse(endDateController.text)),
                         );
-                        ref.read(tripControllerProvider).edit(updatedTrip);
+
+                        ref
+                            .read(asyncTripsProvider.notifier)
+                            .updateTrip(updatedTrip);
                         context.goNamed(
                           AppRoute.trip.name,
                           params: {'id': trip.id},
+                          extra: updatedTrip,
                         );
                       }
                     } //,

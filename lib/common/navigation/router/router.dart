@@ -27,15 +27,15 @@ final router = GoRouter(
         );
       },
     ),
-    // GoRoute(
-    //   path: '/edittrip/:id',
-    //   name: AppRoute.edittrip.name,
-    //   builder: (context, state) {
-    //     return EditTripPage(
-    //       trip: state.extra! as Trip,
-    //     );
-    //   },
-    // ),
+    GoRoute(
+      path: '/edittrip/:id',
+      name: AppRoute.edittrip.name,
+      builder: (context, state) {
+        return EditTripPage(
+          trip: state.extra! as Trip,
+        );
+      },
+    ),
     // GoRoute(
     //   path: '/pasttrips',
     //   name: AppRoute.pasttrips.name,
