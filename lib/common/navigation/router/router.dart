@@ -18,14 +18,15 @@ final router = GoRouter(
         path: '/',
         name: AppRoute.home.name,
         builder: (context, state) => const TripsListPage()),
-    // GoRoute(
-    //   path: '/trip/:id',
-    //   name: AppRoute.trip.name,
-    //   builder: (context, state) {
-    //     final tripId = state.params['id']!;
-    //     return TripPage(tripId: tripId);
-    //   },
-    // ),
+    GoRoute(
+      path: '/trip/:id',
+      name: AppRoute.trip.name,
+      builder: (context, state) {
+        return TripPage(
+          trip: state.extra! as Trip,
+        );
+      },
+    ),
     // GoRoute(
     //   path: '/edittrip/:id',
     //   name: AppRoute.edittrip.name,

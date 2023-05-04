@@ -24,6 +24,7 @@ class TripGridViewItem extends StatelessWidget {
         context.goNamed(
           isPast ? AppRoute.pasttrip.name : AppRoute.trip.name,
           params: {'id': trip.id},
+          extra: trip,
         );
       },
       child: isPast

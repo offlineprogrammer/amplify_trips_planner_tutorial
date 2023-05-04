@@ -31,50 +31,6 @@ class TripsAPIService {
     }
   }
 
-  // StreamSubscription<GraphQLResponse<Trip>>? subscription;
-
-  // Stream<List<Trip?>> subscribe() {
-  //   final subscriptionRequest = ModelSubscriptions.onCreate(Trip.classType);
-  //   final Stream<GraphQLResponse<Trip>> operation = Amplify.API.subscribe(
-  //     subscriptionRequest,
-  //     onEstablished: () => safePrint('Subscription established'),
-  //   );
-  //   subscription = operation.listen(
-  //     (event) {
-  //       safePrint('Subscription event data received: ${event.data}');
-  //     },
-  //     onError: (Object e) => safePrint('Error in subscription stream: $e'),
-  //   );
-
-  //   return operation.map((event) => event.data).toList().asStream();
-  // }
-
-  // Stream<List<Trip?>> subscribe() {
-  //   final subscriptionRequest = ModelSubscriptions.onCreate(Trip.classType);
-  //   final operation = Amplify.API
-  //       .subscribe(
-  //         subscriptionRequest,
-  //         onEstablished: () => safePrint('Subscription established'),
-  //       )
-  //       // Listens to only 5 elements
-  //       .take(5)
-  //       .map((event) => event.data)
-  //       .toList()
-  //       .asStream()
-  //       .handleError(
-  //     (Object error) {
-  //       safePrint('Error in subscription stream: $error');
-  //     },
-  //   );
-
-  //   subscription = operation.listen(
-  //     (event) {
-  //       safePrint('Subscription event data received: ${event.data}');
-  //     },
-  //   );
-  //   return operation;
-  // }
-
   Future<void> addTrip(Trip trip) async {
     try {
       final request = ModelMutations.create(trip);
