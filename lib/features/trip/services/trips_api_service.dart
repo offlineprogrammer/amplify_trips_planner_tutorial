@@ -24,7 +24,36 @@ class TripsAPIService {
         safePrint('errors: ${response.errors}');
         return const [];
       }
-      return trips.map((e) => e as Trip).toList();
+      trips.sort((a, b) =>
+          a!.startDate.getDateTime().compareTo(b!.startDate.getDateTime()));
+      return trips
+          .map((e) => e as Trip)
+          .where((element) =>
+              element.endDate.getDateTime().isAfter(DateTime.now()))
+          .toList();
+    } on ApiException catch (e) {
+      safePrint('Query failed: $e');
+      return const [];
+    }
+  }
+
+  Future<List<Trip>> getPastTrips() async {
+    try {
+      final request = ModelQueries.list(Trip.classType);
+      final response = await Amplify.API.query(request: request).response;
+
+      final trips = response.data?.items;
+      if (trips == null) {
+        safePrint('errors: ${response.errors}');
+        return const [];
+      }
+      trips.sort((a, b) =>
+          a!.startDate.getDateTime().compareTo(b!.startDate.getDateTime()));
+      return trips
+          .map((e) => e as Trip)
+          .where((element) =>
+              element.endDate.getDateTime().isBefore(DateTime.now()))
+          .toList();
     } on ApiException catch (e) {
       safePrint('Query failed: $e');
       return const [];

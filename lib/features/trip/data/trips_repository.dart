@@ -23,6 +23,10 @@ class TripsRepository {
     return tripsAPIService.getTrips();
   }
 
+  Future<List<Trip>> getPastTrips() {
+    return tripsAPIService.getPastTrips();
+  }
+
   Future<void> add(Trip trip) async {
     await tripsAPIService.addTrip(trip);
   }

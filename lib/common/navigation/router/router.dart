@@ -24,10 +24,6 @@ final router = GoRouter(
       builder: (context, state) {
         final tripId = state.params['id']!;
         return TripPage(tripId: tripId);
-        // return TripPage(
-
-        //   trip: state.extra! as Trip,
-        // );
       },
     ),
     GoRoute(
@@ -39,19 +35,19 @@ final router = GoRouter(
         );
       },
     ),
-    // GoRoute(
-    //   path: '/pasttrips',
-    //   name: AppRoute.pasttrips.name,
-    //   builder: (context, state) => const PastTripsList(),
-    // ),
-    // GoRoute(
-    //   path: '/pasttrip/:id',
-    //   name: AppRoute.pasttrip.name,
-    //   builder: (context, state) {
-    //     final tripId = state.params['id']!;
-    //     return PastTripPage(tripId: tripId);
-    //   },
-    // ),
+    GoRoute(
+      path: '/pasttrips',
+      name: AppRoute.pasttrips.name,
+      builder: (context, state) => const PastTripsList(),
+    ),
+    GoRoute(
+      path: '/pasttrip/:id',
+      name: AppRoute.pasttrip.name,
+      builder: (context, state) {
+        final tripId = state.params['id']!;
+        return PastTripPage(tripId: tripId);
+      },
+    ),
     // GoRoute(
     //   path: '/addActivity/:id',
     //   name: AppRoute.addactivity.name,
