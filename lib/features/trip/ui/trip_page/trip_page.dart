@@ -55,44 +55,40 @@ class TripPage extends ConsumerWidget {
         loading: () => const SizedBox(),
       ),
       body: tripValue.when(
-        data: (trip) => trip == null
-            ? const Center(
-                child: Text('Trip Not Found'),
-              )
-            : Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  SelectedTripCard(trip: trip),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Divider(
-                    height: 20,
-                    thickness: 5,
-                    indent: 20,
-                    endIndent: 20,
-                  ),
-                  const Text(
-                    'Your Activities',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Expanded(
-                    child: ActivitiesList(
-                      trip: trip,
-                    ),
-                  )
-                ],
+        data: (trip) => Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const SizedBox(
+              height: 8,
+            ),
+            SelectedTripCard(trip: trip),
+            const SizedBox(
+              height: 20,
+            ),
+            const Divider(
+              height: 20,
+              thickness: 5,
+              indent: 20,
+              endIndent: 20,
+            ),
+            const Text(
+              'Your Activities',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
               ),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Expanded(
+              child: ActivitiesList(
+                trip: trip,
+              ),
+            )
+          ],
+        ),
         error: (e, st) => Center(
           child: Column(
             children: [

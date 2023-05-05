@@ -33,7 +33,7 @@ class SelectedTripCard extends ConsumerWidget {
     if (pickedFile == null) {
       return;
     }
-    final file = File(pickedFile!.path);
+    final file = File(pickedFile.path);
     showDialog<String>(
         context: context,
         barrierDismissible: false,

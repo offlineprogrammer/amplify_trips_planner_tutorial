@@ -1,6 +1,5 @@
 import 'package:amplify_trips_planner/features/trip/controller/async_trip.dart';
-import 'package:amplify_trips_planner/features/trip/controller/async_trips_list.dart';
-import 'package:amplify_trips_planner/features/trip/controller/trip_controller.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
