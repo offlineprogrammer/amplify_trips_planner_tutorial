@@ -1,3 +1,5 @@
+import 'package:amplify_trips_planner/features/trip/controller/async_trip.dart';
+import 'package:amplify_trips_planner/features/trip/controller/async_trips_list.dart';
 import 'package:amplify_trips_planner/features/trip/controller/trip_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,7 +14,8 @@ class UploadProgressDialog extends ConsumerWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20),
         child: ValueListenableBuilder(
-          valueListenable: ref.read(tripControllerProvider).uploadProgress(),
+          valueListenable:
+              ref.read(asyncTripProvider('').notifier).uploadProgress(),
           builder: (context, value, child) {
             return Column(
               mainAxisSize: MainAxisSize.min,

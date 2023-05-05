@@ -22,9 +22,12 @@ final router = GoRouter(
       path: '/trip/:id',
       name: AppRoute.trip.name,
       builder: (context, state) {
-        return TripPage(
-          trip: state.extra! as Trip,
-        );
+        final tripId = state.params['id']!;
+        return TripPage(tripId: tripId);
+        // return TripPage(
+
+        //   trip: state.extra! as Trip,
+        // );
       },
     ),
     GoRoute(

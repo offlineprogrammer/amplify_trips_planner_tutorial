@@ -34,4 +34,8 @@ class TripsRepository {
   Future<void> delete(Trip deletedTrip) async {
     await tripsAPIService.deleteTrip(deletedTrip);
   }
+
+  Future<Trip> getTrip(String tripId) async {
+    return await tripsAPIService.getTrip(tripId);
+  }
 }

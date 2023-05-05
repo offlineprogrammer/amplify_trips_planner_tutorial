@@ -6,7 +6,7 @@ part of 'async_trips_list.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$asyncTripsHash() => r'c2f8c3c4dbfb66be17712b6b8855fc8ca6d49fd6';
+String _$asyncTripsHash() => r'd41ff981feabc3a3ed42fe62cc7ef743c13d0036';
 
 /// See also [AsyncTrips].
 @ProviderFor(AsyncTrips)

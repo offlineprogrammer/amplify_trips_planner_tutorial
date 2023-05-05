@@ -1,7 +1,10 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_trips_planner/common/services/storage_service.dart';
 import 'package:amplify_trips_planner/features/trip/data/trips_repository.dart';
 import 'package:amplify_trips_planner/models/ModelProvider.dart';
+import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'async_trips_list.g.dart';
 
@@ -46,15 +49,6 @@ class AsyncTrips extends _$AsyncTrips {
       final tripsRepository = ref.read(tripsRepositoryProvider);
       await tripsRepository.delete(trip);
 
-      return _fetchTrips();
-    });
-  }
-
-  Future<void> updateTrip(Trip trip) async {
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      final tripsRepository = ref.read(tripsRepositoryProvider);
-      await tripsRepository.update(trip);
       return _fetchTrips();
     });
   }

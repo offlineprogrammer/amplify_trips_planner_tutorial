@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:amplify_trips_planner/features/trip/controller/async_trip.dart';
 import 'package:amplify_trips_planner/features/trip/controller/async_trips_list.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'package:amplify_trips_planner/features/trip/controller/trip_controller.dart';
 import 'package:amplify_trips_planner/common/navigation/router/routes.dart';
 import 'package:amplify_trips_planner/common/utils/colors.dart' as constants;
 
@@ -33,15 +33,17 @@ class SelectedTripCard extends ConsumerWidget {
     if (pickedFile == null) {
       return;
     }
-
-    final file = File(pickedFile.path);
+    final file = File(pickedFile!.path);
     showDialog<String>(
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
           return const UploadProgressDialog();
         });
-    await ref.read(tripControllerProvider).uploadFile(file, trip);
+
+    return await ref
+        .read(asyncTripProvider(trip.id).notifier)
+        .uploadFile(file, trip);
   }
 
   Future<bool> deleteTrip(
@@ -122,8 +124,10 @@ class SelectedTripCard extends ConsumerWidget {
                     context: context,
                     trip: trip,
                     ref: ref,
-                  ).then((value) =>
-                      Navigator.of(context, rootNavigator: true).pop());
+                  ).then((value) {
+                    Navigator.of(context, rootNavigator: true).pop();
+                    ref.refresh(asyncTripProvider(trip.id));
+                  });
                 },
                 icon: const Icon(Icons.camera_enhance_sharp),
               ),

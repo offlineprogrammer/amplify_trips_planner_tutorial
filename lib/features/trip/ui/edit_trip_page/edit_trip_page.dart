@@ -1,5 +1,6 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_trips_planner/common/navigation/router/routes.dart';
+import 'package:amplify_trips_planner/features/trip/controller/async_trip.dart';
 import 'package:amplify_trips_planner/features/trip/controller/async_trips_list.dart';
 import 'package:amplify_trips_planner/features/trip/controller/trip_controller.dart';
 import 'package:amplify_trips_planner/models/ModelProvider.dart';
@@ -179,8 +180,9 @@ class EditTripPage extends HookConsumerWidget {
                         );
 
                         ref
-                            .read(asyncTripsProvider.notifier)
+                            .read(asyncTripProvider(trip.id).notifier)
                             .updateTrip(updatedTrip);
+
                         context.goNamed(
                           AppRoute.trip.name,
                           params: {'id': trip.id},

@@ -19,12 +19,12 @@ class TripsAPIService {
       final request = ModelQueries.list(Trip.classType);
       final response = await Amplify.API.query(request: request).response;
 
-      final todos = response.data?.items;
-      if (todos == null) {
+      final trips = response.data?.items;
+      if (trips == null) {
         safePrint('errors: ${response.errors}');
         return const [];
       }
-      return todos.map((e) => e as Trip).toList();
+      return trips.map((e) => e as Trip).toList();
     } on ApiException catch (e) {
       safePrint('Query failed: $e');
       return const [];
@@ -68,6 +68,22 @@ class TripsAPIService {
           .response;
     } on Exception catch (error) {
       debugPrint(error.toString());
+    }
+  }
+
+  Future<Trip> getTrip(String tripId) async {
+    try {
+      final request = ModelQueries.get(
+        Trip.classType,
+        TripModelIdentifier(id: tripId),
+      );
+      final response = await Amplify.API.query(request: request).response;
+
+      final trip = response.data!;
+      return trip;
+    } on ApiException catch (e) {
+      safePrint('Query failed: $e');
+      throw Exception;
     }
   }
 }
