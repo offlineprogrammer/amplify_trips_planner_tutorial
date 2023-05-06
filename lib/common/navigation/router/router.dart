@@ -48,22 +48,22 @@ final router = GoRouter(
         return PastTripPage(tripId: tripId);
       },
     ),
-    // GoRoute(
-    //   path: '/addActivity/:id',
-    //   name: AppRoute.addactivity.name,
-    //   builder: (context, state) {
-    //     final tripId = state.params['id']!;
-    //     return AddActivityPage(tripId: tripId);
-    //   },
-    // ),
     GoRoute(
-      path: '/activity/:id',
-      name: AppRoute.activity.name,
+      path: '/addActivity/:id',
+      name: AppRoute.addactivity.name,
       builder: (context, state) {
-        final activityId = state.params['id']!;
-        return ActivityPage(activityId: activityId);
+        final tripId = state.params['id']!;
+        return AddActivityPage(tripId: tripId);
       },
     ),
+    // GoRoute(
+    //   path: '/activity/:id',
+    //   name: AppRoute.activity.name,
+    //   builder: (context, state) {
+    //     final activityId = state.params['id']!;
+    //     return ActivityPage(activityId: activityId);
+    //   },
+    // ),
     GoRoute(
       path: '/editactivity/:id',
       name: AppRoute.editactivity.name,

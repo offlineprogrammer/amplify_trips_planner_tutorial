@@ -1,8 +1,8 @@
+import 'package:amplify_trips_planner/features/activity/controller/activities_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:amplify_trips_planner/common/navigation/router/routes.dart';
-import 'package:amplify_trips_planner/features/activity/data/activities_repository.dart';
 import 'package:amplify_trips_planner/features/activity/ui/activity_category_icon.dart';
 import 'package:go_router/go_router.dart';
 import 'package:amplify_trips_planner/models/ModelProvider.dart';
@@ -17,7 +17,7 @@ class ActivitiesList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final activitiesListValue = ref.watch(activitiesListStreamProvider(trip));
+    final activitiesListValue = ref.watch(activitiesListProvider(trip.id));
 
     return activitiesListValue.when(
         data: (activities) => activities.isEmpty

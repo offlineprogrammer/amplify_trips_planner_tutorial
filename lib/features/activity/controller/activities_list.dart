@@ -1,22 +1,24 @@
+import 'dart:async';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_trips_planner/features/activity/data/activities_repository.dart';
 import 'package:amplify_trips_planner/models/ModelProvider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+part 'activities_list.g.dart';
 
-final activitiesListController =
-    Provider.family<ActivitiesListController, Trip>((ref, trip) {
-  return ActivitiesListController(ref, trip);
-});
+@riverpod
+class ActivitiesList extends _$ActivitiesList {
+  Future<List<Activity>> _fetchActivities(String tripId) async {
+    final activitiesRepository = ref.read(activitiesRepositoryProvider);
+    final activities = await activitiesRepository.getActivitiesForTrip(tripId);
+    return activities;
+  }
 
-class ActivitiesListController {
-  ActivitiesListController(
-    this.ref,
-    this.trip,
-  );
-  final Ref ref;
-  final Trip trip;
+  @override
+  FutureOr<List<Activity>> build(String tripId) async {
+    return _fetchActivities(tripId);
+  }
 
   Future<void> add({
     required String name,
@@ -40,6 +42,6 @@ class ActivitiesListController {
 
     final activitiesRepository = ref.read(activitiesRepositoryProvider);
 
-    // await activitiesRepository.add(activity);
+    await activitiesRepository.add(activity);
   }
 }
