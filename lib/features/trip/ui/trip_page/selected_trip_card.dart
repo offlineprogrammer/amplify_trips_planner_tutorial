@@ -112,7 +112,7 @@ class SelectedTripCard extends ConsumerWidget {
                 onPressed: () {
                   context.goNamed(
                     AppRoute.edittrip.name,
-                    params: {'id': trip.id},
+                    pathParameters: {'id': trip.id},
                     extra: trip,
                   );
                 },

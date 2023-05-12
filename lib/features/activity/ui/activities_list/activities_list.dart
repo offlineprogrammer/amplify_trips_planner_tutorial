@@ -33,13 +33,12 @@ class ActivitiesList extends ConsumerWidget {
                           return InkWell(
                             onTap: () => context.goNamed(
                               AppRoute.activity.name,
-                              params: {'id': activities[index]!.id},
+                              pathParameters: {'id': activities[index].id},
                             ),
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 15.0),
                               child: ActivityCategoryIcon(
-                                  activityCategory:
-                                      activities[index]!.category),
+                                  activityCategory: activities[index].category),
                             ),
                           );
                         },
@@ -47,14 +46,14 @@ class ActivitiesList extends ConsumerWidget {
                         contentsBuilder: (context, index) => InkWell(
                           onTap: () => context.goNamed(
                             AppRoute.activity.name,
-                            params: {'id': activities[index]!.id},
+                            pathParameters: {'id': activities[index].id},
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(24),
                             child: Column(
                               children: [
                                 Text(
-                                  activities[index]!.activityName,
+                                  activities[index].activityName,
                                   style:
                                       Theme.of(context).textTheme.titleMedium,
                                   textAlign: TextAlign.center,
@@ -64,16 +63,15 @@ class ActivitiesList extends ConsumerWidget {
                                 ),
                                 Text(
                                   DateFormat('yyyy-MM-dd').format(
-                                      activities[index]!
+                                      activities[index]
                                           .activityDate
                                           .getDateTime()),
                                   style: Theme.of(context).textTheme.bodySmall,
                                 ),
                                 Text(
-                                  DateFormat('hh:mm a').format(
-                                      activities[index]!
-                                          .activityTime!
-                                          .getDateTime()),
+                                  DateFormat('hh:mm a').format(activities[index]
+                                      .activityTime!
+                                      .getDateTime()),
                                   style: Theme.of(context).textTheme.bodySmall,
                                 ),
                               ],

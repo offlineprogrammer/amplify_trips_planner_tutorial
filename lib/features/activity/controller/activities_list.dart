@@ -20,6 +20,16 @@ class ActivitiesList extends _$ActivitiesList {
     return _fetchActivities(tripId);
   }
 
+  Future<void> removeActivity(Activity activity) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      final activitiesRepository = ref.read(activitiesRepositoryProvider);
+      await activitiesRepository.delete(activity);
+
+      return _fetchActivities(activity.trip.id);
+    });
+  }
+
   Future<void> add({
     required String name,
     required String activityDate,

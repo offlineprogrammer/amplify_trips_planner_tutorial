@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_trips_planner/models/ModelProvider.dart';
-import 'package:amplify_trips_planner/models/Trip.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -78,11 +77,11 @@ class ActivitiesAPIService {
     }
   }
 
-  Future<void> deleteTrip(Trip trip) async {
+  Future<void> deleteActivity(Activity activity) async {
     try {
       await Amplify.API
           .mutate(
-            request: ModelMutations.delete(trip),
+            request: ModelMutations.delete(activity),
           )
           .response;
     } on Exception catch (error) {
@@ -102,16 +101,16 @@ class ActivitiesAPIService {
     }
   }
 
-  Future<Trip> getTrip(String tripId) async {
+  Future<Activity> getActivity(String activityId) async {
     try {
       final request = ModelQueries.get(
-        Trip.classType,
-        TripModelIdentifier(id: tripId),
+        Activity.classType,
+        ActivityModelIdentifier(id: activityId),
       );
       final response = await Amplify.API.query(request: request).response;
 
-      final trip = response.data!;
-      return trip;
+      final activity = response.data!;
+      return activity;
     } on ApiException catch (e) {
       safePrint('Query failed: $e');
       throw Exception;

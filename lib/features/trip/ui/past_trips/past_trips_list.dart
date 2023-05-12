@@ -38,7 +38,7 @@ class PastTripsList extends ConsumerWidget {
                       (orientation == Orientation.portrait) ? 0.9 : 1.4,
                   children: trips.map((tripData) {
                     return TripGridViewItem(
-                      trip: tripData!,
+                      trip: tripData,
                       isPast: true,
                     );
                   }).toList(growable: false),

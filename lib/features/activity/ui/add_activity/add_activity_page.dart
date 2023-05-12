@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:amplify_trips_planner/common/navigation/router/routes.dart';
-import 'package:amplify_trips_planner/features/activity/controller/activities_list_controller.dart';
 
 import 'package:amplify_trips_planner/models/ModelProvider.dart';
 import 'package:amplify_trips_planner/common/utils/colors.dart' as constants;
@@ -39,7 +38,7 @@ class AddActivityPage extends ConsumerWidget {
           onPressed: () {
             context.goNamed(
               AppRoute.trip.name,
-              params: {'id': tripId},
+              pathParameters: {'id': tripId},
             );
           },
           icon: const Icon(Icons.arrow_back),
@@ -118,7 +117,7 @@ class AddActivityPage extends ConsumerWidget {
                     onTap: () async {
                       DateTime? pickedDate = await showDatePicker(
                         context: context,
-                        initialDate: DateTime.parse(trip!.startDate.toString()),
+                        initialDate: DateTime.parse(trip.startDate.toString()),
                         firstDate: DateTime.parse(trip.startDate.toString()),
                         lastDate: DateTime.parse(trip.endDate.toString()),
                       );
@@ -184,7 +183,7 @@ class AddActivityPage extends ConsumerWidget {
                               );
                           context.goNamed(
                             AppRoute.trip.name,
-                            params: {'id': trip.id},
+                            pathParameters: {'id': trip.id},
                           );
                         }
                       } //,

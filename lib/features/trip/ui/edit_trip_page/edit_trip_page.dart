@@ -39,7 +39,7 @@ class EditTripPage extends HookConsumerWidget {
           onPressed: () {
             context.goNamed(
               AppRoute.trip.name,
-              params: {'id': trip.id},
+              pathParameters: {'id': trip.id},
             );
           },
           icon: const Icon(Icons.arrow_back),
@@ -184,7 +184,7 @@ class EditTripPage extends HookConsumerWidget {
                         ref.refresh(asyncTripProvider(trip.id));
                         context.goNamed(
                           AppRoute.trip.name,
-                          params: {'id': trip.id},
+                          pathParameters: {'id': trip.id},
                           extra: updatedTrip,
                         );
                       }

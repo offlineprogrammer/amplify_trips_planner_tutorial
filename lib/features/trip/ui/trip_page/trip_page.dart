@@ -45,7 +45,7 @@ class TripPage extends ConsumerWidget {
           onPressed: () {
             context.goNamed(
               AppRoute.addactivity.name,
-              params: {'id': tripId},
+              pathParameters: {'id': tripId},
             );
           },
           backgroundColor: const Color(constants.primaryColorDark),

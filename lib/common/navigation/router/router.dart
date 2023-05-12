@@ -8,7 +8,6 @@ import 'package:go_router/go_router.dart';
 import 'package:amplify_trips_planner/features/trip/ui/past_trips/past_trips_list.dart';
 import 'package:amplify_trips_planner/features/trip/ui/past_trip_page/past_trip_page.dart';
 import 'package:amplify_trips_planner/features/activity/ui/add_activity/add_activity_page.dart';
-import 'package:amplify_trips_planner/features/activity/ui/activity_page/activity_page.dart';
 import 'package:amplify_trips_planner/features/activity/ui/edit_activity/edit_activity_page.dart';
 import 'package:amplify_trips_planner/features/profile/ui/profile_page/profile_page.dart';
 
@@ -22,7 +21,7 @@ final router = GoRouter(
       path: '/trip/:id',
       name: AppRoute.trip.name,
       builder: (context, state) {
-        final tripId = state.params['id']!;
+        final tripId = state.pathParameters['id']!;
         return TripPage(tripId: tripId);
       },
     ),
@@ -44,7 +43,7 @@ final router = GoRouter(
       path: '/pasttrip/:id',
       name: AppRoute.pasttrip.name,
       builder: (context, state) {
-        final tripId = state.params['id']!;
+        final tripId = state.pathParameters['id']!;
         return PastTripPage(tripId: tripId);
       },
     ),
@@ -52,7 +51,7 @@ final router = GoRouter(
       path: '/addActivity/:id',
       name: AppRoute.addactivity.name,
       builder: (context, state) {
-        final tripId = state.params['id']!;
+        final tripId = state.pathParameters['id']!;
         return AddActivityPage(tripId: tripId);
       },
     ),

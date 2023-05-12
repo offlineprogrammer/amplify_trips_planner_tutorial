@@ -49,7 +49,7 @@ class EditActivityPage extends HookConsumerWidget {
           onPressed: () {
             context.goNamed(
               AppRoute.activity.name,
-              params: {'id': activity.id},
+              pathParameters: {'id': activity.id},
             );
           },
           icon: const Icon(Icons.arrow_back),
@@ -200,12 +200,13 @@ class EditActivityPage extends HookConsumerWidget {
                                 DateFormat("HH:mm:ss.sss").format(time)));
 
                         ref
-                            .read(activityControllerProvider)
+                            .read(activityControllerProvider(activity.id)
+                                .notifier)
                             .edit(updatedActivity);
 
                         context.goNamed(
                           AppRoute.activity.name,
-                          params: {'id': activity.id},
+                          pathParameters: {'id': activity.id},
                         );
                       }
                     } //,

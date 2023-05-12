@@ -1,18 +1,24 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:amplify_trips_planner/common/services/storage_service.dart';
 import 'package:amplify_trips_planner/features/activity/data/activities_repository.dart';
 import 'package:amplify_trips_planner/models/ModelProvider.dart';
+import 'package:flutter/material.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final activityControllerProvider = Provider<ActivityController>((ref) {
-  return ActivityController(ref);
-});
+part 'activity_controller.g.dart';
 
-class ActivityController {
-  ActivityController(this.ref);
-  final Ref ref;
+@riverpod
+class ActivityController extends _$ActivityController {
+  Future<Activity> _fetchActivity(String activityId) async {
+    final activitiesRepository = ref.read(activitiesRepositoryProvider);
+    return await activitiesRepository.getActivity(activityId);
+  }
+
+  @override
+  FutureOr<Activity> build(String activityId) async {
+    return _fetchActivity(activityId);
+  }
 
   Future<void> uploadFile(File file, Activity activity) async {
     final fileKey = await ref.read(storageServiceProvider).uploadFile(file);

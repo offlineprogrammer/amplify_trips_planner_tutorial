@@ -16,13 +16,13 @@ class TheNavigationDrawer extends ConsumerWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          DrawerHeader(
-            decoration: const BoxDecoration(
+          const DrawerHeader(
+            decoration: BoxDecoration(
               color: Color(constants.primaryColorDark),
             ),
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(16),
             child: Column(
-              children: const [
+              children: [
                 SizedBox(height: 10),
                 Text('Amplify Trips Planner',
                     style: TextStyle(fontSize: 22, color: Colors.white)),
