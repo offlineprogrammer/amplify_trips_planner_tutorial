@@ -173,7 +173,7 @@ class AddActivityPage extends ConsumerWidget {
                         }
                         if (currentState.validate()) {
                           ref
-                              .read(activitiesListProvider(trip.id).notifier)
+                              .watch(activitiesListProvider(trip.id).notifier)
                               .add(
                                 name: activityNameController.text,
                                 activityDate: activityDateController.text,

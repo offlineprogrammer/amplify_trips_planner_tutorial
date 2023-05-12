@@ -11,6 +11,9 @@ part 'activity_controller.g.dart';
 @riverpod
 class ActivityController extends _$ActivityController {
   Future<Activity> _fetchActivity(String activityId) async {
+    print('init: fetchPost($activityId)');
+    ref.onDispose(() => print('dispose: fetchPost($activityId)'));
+
     final activitiesRepository = ref.read(activitiesRepositoryProvider);
     return await activitiesRepository.getActivity(activityId);
   }
@@ -38,14 +41,6 @@ class ActivityController extends _$ActivityController {
     return await ref.read(storageServiceProvider).getImageUrl(fileKey!);
   }
 
-//   Future<Activity> getActivity(String id) {
-// //return ref.read(activitiesRepositoryProvider).getActivity(id);
-//   }
-
-//   Stream<Activity> listenToActivity(String activityId) {
-//     return ref.read(activitiesRepositoryProvider).listenToActivity(activityId);
-//   }
-
   ValueNotifier<double> uploadProgress() {
     return ref.read(storageServiceProvider).getUploadProgress();
   }
@@ -57,10 +52,6 @@ class ActivityController extends _$ActivityController {
       await activitiesRepository.update(activity);
       return _fetchActivity(activity.id);
     });
-  }
-
-  Future<void> edit(Activity updatedActivity) async {
-    await ref.read(activitiesRepositoryProvider).update(updatedActivity);
   }
 
   Future<void> delete(Activity deletedActivity) async {

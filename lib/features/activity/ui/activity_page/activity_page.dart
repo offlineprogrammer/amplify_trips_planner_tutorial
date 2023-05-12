@@ -35,7 +35,7 @@ class ActivityPage extends ConsumerWidget {
 
     if (value) {
       await ref
-          .read(activitiesListProvider(activity.trip.id).notifier)
+          .watch(activitiesListProvider(activity.trip.id).notifier)
           .removeActivity(activity);
     }
 
@@ -48,7 +48,7 @@ class ActivityPage extends ConsumerWidget {
     required Activity activity,
   }) async {
     final fileUrl = await ref
-        .read(activityControllerProvider(activity.id).notifier)
+        .watch(activityControllerProvider(activity.id).notifier)
         .getFileUrl(activity);
 
     final Uri url = Uri.parse(fileUrl);
@@ -79,14 +79,14 @@ class ActivityPage extends ConsumerWidget {
           return const UploadProgressDialog();
         });
     await ref
-        .read(activityControllerProvider(activity.id).notifier)
+        .watch(activityControllerProvider(activity.id).notifier)
         .uploadFile(file, activity);
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final activityValue = ref.watch(activityControllerProvider(activityId));
-
+    print(activityValue.value?.activityName);
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,

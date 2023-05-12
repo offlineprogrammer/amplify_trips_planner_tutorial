@@ -42,7 +42,7 @@ class SelectedTripCard extends ConsumerWidget {
         });
 
     return await ref
-        .read(tripControllerProvider(trip.id).notifier)
+        .watch(tripControllerProvider(trip.id).notifier)
         .uploadFile(file, trip);
   }
 
@@ -56,7 +56,7 @@ class SelectedTripCard extends ConsumerWidget {
     value ??= false;
 
     if (value) {
-      await ref.read(tripsListProvider.notifier).removeTrip(trip);
+      await ref.watch(tripsListProvider.notifier).removeTrip(trip);
     }
     return value;
   }

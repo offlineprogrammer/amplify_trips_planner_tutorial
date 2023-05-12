@@ -179,9 +179,9 @@ class EditTripPage extends HookConsumerWidget {
                         );
 
                         ref
-                            .read(tripControllerProvider(trip.id).notifier)
+                            .watch(tripControllerProvider(trip.id).notifier)
                             .updateTrip(updatedTrip);
-                        ref.refresh(tripControllerProvider(trip.id));
+
                         context.goNamed(
                           AppRoute.trip.name,
                           pathParameters: {'id': trip.id},

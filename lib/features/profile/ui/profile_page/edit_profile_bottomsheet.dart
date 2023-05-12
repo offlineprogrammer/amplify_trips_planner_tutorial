@@ -100,7 +100,7 @@ class EditProfileBottomSheet extends ConsumerWidget {
                       lastName: lastNameController.text,
                       homeCity: homeCityController.text,
                     );
-                    ref.read(profileControllerProvider).edit(updatedProfile);
+                    ref.watch(profileControllerProvider).edit(updatedProfile);
                     Navigator.of(context).pop();
                   }
                 } //,

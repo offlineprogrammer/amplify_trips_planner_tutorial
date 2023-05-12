@@ -200,9 +200,9 @@ class EditActivityPage extends HookConsumerWidget {
                                 DateFormat("HH:mm:ss.sss").format(time)));
 
                         ref
-                            .read(activityControllerProvider(activity.id)
+                            .watch(activityControllerProvider(activity.id)
                                 .notifier)
-                            .edit(updatedActivity);
+                            .updateTrip(updatedActivity);
 
                         context.goNamed(
                           AppRoute.activity.name,
