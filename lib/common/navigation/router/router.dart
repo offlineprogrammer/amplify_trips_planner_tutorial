@@ -1,4 +1,5 @@
 import 'package:amplify_trips_planner/common/navigation/router/routes.dart';
+import 'package:amplify_trips_planner/features/activity/ui/activity_page/activity_page.dart';
 import 'package:amplify_trips_planner/features/trip/ui/edit_trip_page/edit_trip_page.dart';
 import 'package:amplify_trips_planner/features/trip/ui/trip_page/trip_page.dart';
 import 'package:amplify_trips_planner/features/trip/ui/trips_list/trips_list_page.dart';
@@ -55,14 +56,14 @@ final router = GoRouter(
         return AddActivityPage(tripId: tripId);
       },
     ),
-    // GoRoute(
-    //   path: '/activity/:id',
-    //   name: AppRoute.activity.name,
-    //   builder: (context, state) {
-    //     final activityId = state.params['id']!;
-    //     return ActivityPage(activityId: activityId);
-    //   },
-    // ),
+    GoRoute(
+      path: '/activity/:id',
+      name: AppRoute.activity.name,
+      builder: (context, state) {
+        final activityId = state.pathParameters['id']!;
+        return ActivityPage(activityId: activityId);
+      },
+    ),
     GoRoute(
       path: '/editactivity/:id',
       name: AppRoute.editactivity.name,

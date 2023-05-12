@@ -49,9 +49,13 @@ class ActivitiesList extends _$ActivitiesList {
       trip: trip,
       category: category,
     );
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      final activitiesRepository = ref.read(activitiesRepositoryProvider);
 
-    final activitiesRepository = ref.read(activitiesRepositoryProvider);
+      await activitiesRepository.add(activity);
 
-    await activitiesRepository.add(activity);
+      return _fetchActivities(trip.id);
+    });
   }
 }

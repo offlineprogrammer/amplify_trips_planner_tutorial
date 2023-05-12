@@ -181,6 +181,7 @@ class AddActivityPage extends ConsumerWidget {
                                 category: activityCategory,
                                 trip: trip,
                               );
+
                           context.goNamed(
                             AppRoute.trip.name,
                             pathParameters: {'id': trip.id},
