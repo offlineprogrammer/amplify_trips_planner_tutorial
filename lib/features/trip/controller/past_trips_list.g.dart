@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'async_past_trips_list.dart';
+part of 'past_trips_list.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -8,11 +8,11 @@ part of 'async_past_trips_list.dart';
 
 String _$asyncPastTripsHash() => r'ecd8f2e031d922d4b07093529f56ac1d14f8c056';
 
-/// See also [AsyncPastTrips].
-@ProviderFor(AsyncPastTrips)
+/// See also [PastTripsList].
+@ProviderFor(PastTripsList)
 final asyncPastTripsProvider =
-    AutoDisposeAsyncNotifierProvider<AsyncPastTrips, List<Trip>>.internal(
-  AsyncPastTrips.new,
+    AutoDisposeAsyncNotifierProvider<PastTripsList, List<Trip>>.internal(
+  PastTripsList.new,
   name: r'asyncPastTripsProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null

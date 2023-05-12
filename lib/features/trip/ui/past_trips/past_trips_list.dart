@@ -1,5 +1,5 @@
 import 'package:amplify_trips_planner/common/ui/the_navigation_drawer.dart';
-import 'package:amplify_trips_planner/features/trip/controller/async_past_trips_list.dart';
+import 'package:amplify_trips_planner/features/trip/controller/past_trips_list.dart';
 import 'package:amplify_trips_planner/features/trip/ui/trip_gridview_item/trip_gridview_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

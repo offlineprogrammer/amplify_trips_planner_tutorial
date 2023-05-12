@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'async_trip.dart';
+part of 'trip_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -37,16 +37,16 @@ abstract class _$AsyncTrip extends BuildlessAutoDisposeAsyncNotifier<Trip> {
   );
 }
 
-/// See also [AsyncTrip].
-@ProviderFor(AsyncTrip)
+/// See also [TripController].
+@ProviderFor(TripController)
 const asyncTripProvider = AsyncTripFamily();
 
-/// See also [AsyncTrip].
+/// See also [TripController].
 class AsyncTripFamily extends Family<AsyncValue<Trip>> {
-  /// See also [AsyncTrip].
+  /// See also [TripController].
   const AsyncTripFamily();
 
-  /// See also [AsyncTrip].
+  /// See also [TripController].
   AsyncTripProvider call(
     String tripId,
   ) {
@@ -79,14 +79,14 @@ class AsyncTripFamily extends Family<AsyncValue<Trip>> {
   String? get name => r'asyncTripProvider';
 }
 
-/// See also [AsyncTrip].
+/// See also [TripController].
 class AsyncTripProvider
-    extends AutoDisposeAsyncNotifierProviderImpl<AsyncTrip, Trip> {
-  /// See also [AsyncTrip].
+    extends AutoDisposeAsyncNotifierProviderImpl<TripController, Trip> {
+  /// See also [TripController].
   AsyncTripProvider(
     this.tripId,
   ) : super.internal(
-          () => AsyncTrip()..tripId = tripId,
+          () => TripController()..tripId = tripId,
           from: asyncTripProvider,
           name: r'asyncTripProvider',
           debugGetCreateSourceHash:
@@ -114,7 +114,7 @@ class AsyncTripProvider
 
   @override
   FutureOr<Trip> runNotifierBuild(
-    covariant AsyncTrip notifier,
+    covariant TripController notifier,
   ) {
     return notifier.build(
       tripId,

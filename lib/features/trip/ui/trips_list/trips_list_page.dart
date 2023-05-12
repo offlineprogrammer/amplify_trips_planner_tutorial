@@ -1,4 +1,4 @@
-import 'package:amplify_trips_planner/features/trip/controller/async_trips_list.dart';
+import 'package:amplify_trips_planner/features/trip/controller/trips_list.dart';
 import 'package:flutter/material.dart';
 
 import 'package:amplify_trips_planner/features/trip/ui/trips_list/add_trip_bottomsheet.dart';
