@@ -50,8 +50,17 @@ class ActivityController extends _$ActivityController {
     return ref.read(storageServiceProvider).getUploadProgress();
   }
 
+  Future<void> updateTrip(Activity activity) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      final activitiesRepository = ref.read(activitiesRepositoryProvider);
+      await activitiesRepository.update(activity);
+      return _fetchActivity(activity.id);
+    });
+  }
+
   Future<void> edit(Activity updatedActivity) async {
-    // await ref.read(activitiesRepositoryProvider).update(updatedActivity);
+    await ref.read(activitiesRepositoryProvider).update(updatedActivity);
   }
 
   Future<void> delete(Activity deletedActivity) async {

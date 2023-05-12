@@ -89,11 +89,11 @@ class ActivitiesAPIService {
     }
   }
 
-  Future<void> updateTrip(Trip updatedTrip) async {
+  Future<void> updateActivity(Activity updatedActivity) async {
     try {
       await Amplify.API
           .mutate(
-            request: ModelMutations.update(updatedTrip),
+            request: ModelMutations.update(updatedActivity),
           )
           .response;
     } on Exception catch (error) {

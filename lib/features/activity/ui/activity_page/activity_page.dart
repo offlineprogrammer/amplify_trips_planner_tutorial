@@ -182,9 +182,10 @@ class ActivityPage extends ConsumerWidget {
                                 context: context,
                                 activity: activity,
                                 ref: ref,
-                              ).then((value) =>
-                                  Navigator.of(context, rootNavigator: true)
-                                      .pop());
+                              ).then((value) {
+                                Navigator.of(context, rootNavigator: true)
+                                    .pop();
+                              });
                             },
                             child: const Text('Replace'),
                           ),
@@ -200,9 +201,9 @@ class ActivityPage extends ConsumerWidget {
                               context: context,
                               activity: activity,
                               ref: ref,
-                            ).then((value) =>
-                                Navigator.of(context, rootNavigator: true)
-                                    .pop());
+                            ).then((value) => context.pop());
+                            // Navigator.of(context, rootNavigator: true)
+                            //     .pop());
                           },
                           child: const Text('Attach a PDF or photo'),
                         ),

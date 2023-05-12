@@ -30,4 +30,8 @@ class ActivitiesRepository {
   Future<void> delete(Activity activity) async {
     await activitiesAPIService.deleteActivity(activity);
   }
+
+  Future<void> update(Activity activity) async {
+    await activitiesAPIService.updateActivity(activity);
+  }
 }
