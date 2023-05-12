@@ -26,7 +26,7 @@ class TripsListPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tripsListValue = ref.watch(asyncTripsProvider);
+    final tripsListValue = ref.watch(tripsListProvider);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

@@ -21,7 +21,7 @@ class AddActivityPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tripValue = ref.watch(asyncTripProvider(tripId));
+    final tripValue = ref.watch(tripControllerProvider(tripId));
     final activityNameController = TextEditingController();
     final activityDateController = TextEditingController();
     final activityTimeController = TextEditingController();

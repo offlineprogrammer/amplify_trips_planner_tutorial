@@ -6,19 +6,19 @@ part of 'trips_list.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$asyncTripsHash() => r'd41ff981feabc3a3ed42fe62cc7ef743c13d0036';
+String _$tripsListHash() => r'3e51ec4baddbb143787d53cbfba723bfb9a88aaa';
 
 /// See also [TripsList].
 @ProviderFor(TripsList)
-final asyncTripsProvider =
+final tripsListProvider =
     AutoDisposeAsyncNotifierProvider<TripsList, List<Trip>>.internal(
   TripsList.new,
-  name: r'asyncTripsProvider',
+  name: r'tripsListProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$asyncTripsHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$tripsListHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$AsyncTrips = AutoDisposeAsyncNotifier<List<Trip>>;
+typedef _$TripsList = AutoDisposeAsyncNotifier<List<Trip>>;
 // ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions

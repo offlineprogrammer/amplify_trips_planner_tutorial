@@ -19,7 +19,7 @@ class TripPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tripValue = ref.watch(asyncTripProvider(tripId));
+    final tripValue = ref.watch(tripControllerProvider(tripId));
 
     return Scaffold(
       appBar: AppBar(
@@ -95,7 +95,7 @@ class TripPage extends ConsumerWidget {
               Text(e.toString()),
               TextButton(
                   onPressed: () async {
-                    ref.refresh(asyncTripProvider(tripId));
+                    ref.refresh(tripControllerProvider(tripId));
                   },
                   child: const Text('Try again')),
             ],

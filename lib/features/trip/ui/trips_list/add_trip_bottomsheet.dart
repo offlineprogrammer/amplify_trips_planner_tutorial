@@ -136,7 +136,7 @@ class AddTripBottomSheet extends HookConsumerWidget {
                     return;
                   }
                   if (currentState.validate()) {
-                    ref.read(asyncTripsProvider.notifier).addTrip(
+                    ref.read(tripsListProvider.notifier).addTrip(
                           name: tripNameController.text,
                           destination: destinationController.text,
                           startDate: startDateController.text,

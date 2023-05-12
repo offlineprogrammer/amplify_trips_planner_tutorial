@@ -6,7 +6,7 @@ part of 'trip_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$asyncTripHash() => r'77efe6cdffb86f14a31bcaf8d1c8d6d223157371';
+String _$tripControllerHash() => r'324b8d6d419ebd4dcd2b98c95d80563efee596b2';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,7 +29,8 @@ class _SystemHash {
   }
 }
 
-abstract class _$AsyncTrip extends BuildlessAutoDisposeAsyncNotifier<Trip> {
+abstract class _$TripController
+    extends BuildlessAutoDisposeAsyncNotifier<Trip> {
   late final String tripId;
 
   FutureOr<Trip> build(
@@ -39,25 +40,25 @@ abstract class _$AsyncTrip extends BuildlessAutoDisposeAsyncNotifier<Trip> {
 
 /// See also [TripController].
 @ProviderFor(TripController)
-const asyncTripProvider = AsyncTripFamily();
+const tripControllerProvider = TripControllerFamily();
 
 /// See also [TripController].
-class AsyncTripFamily extends Family<AsyncValue<Trip>> {
+class TripControllerFamily extends Family<AsyncValue<Trip>> {
   /// See also [TripController].
-  const AsyncTripFamily();
+  const TripControllerFamily();
 
   /// See also [TripController].
-  AsyncTripProvider call(
+  TripControllerProvider call(
     String tripId,
   ) {
-    return AsyncTripProvider(
+    return TripControllerProvider(
       tripId,
     );
   }
 
   @override
-  AsyncTripProvider getProviderOverride(
-    covariant AsyncTripProvider provider,
+  TripControllerProvider getProviderOverride(
+    covariant TripControllerProvider provider,
   ) {
     return call(
       provider.tripId,
@@ -76,32 +77,33 @@ class AsyncTripFamily extends Family<AsyncValue<Trip>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'asyncTripProvider';
+  String? get name => r'tripControllerProvider';
 }
 
 /// See also [TripController].
-class AsyncTripProvider
+class TripControllerProvider
     extends AutoDisposeAsyncNotifierProviderImpl<TripController, Trip> {
   /// See also [TripController].
-  AsyncTripProvider(
+  TripControllerProvider(
     this.tripId,
   ) : super.internal(
           () => TripController()..tripId = tripId,
-          from: asyncTripProvider,
-          name: r'asyncTripProvider',
+          from: tripControllerProvider,
+          name: r'tripControllerProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$asyncTripHash,
-          dependencies: AsyncTripFamily._dependencies,
-          allTransitiveDependencies: AsyncTripFamily._allTransitiveDependencies,
+                  : _$tripControllerHash,
+          dependencies: TripControllerFamily._dependencies,
+          allTransitiveDependencies:
+              TripControllerFamily._allTransitiveDependencies,
         );
 
   final String tripId;
 
   @override
   bool operator ==(Object other) {
-    return other is AsyncTripProvider && other.tripId == tripId;
+    return other is TripControllerProvider && other.tripId == tripId;
   }
 
   @override

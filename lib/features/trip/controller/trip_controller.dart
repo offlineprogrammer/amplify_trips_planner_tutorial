@@ -9,7 +9,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'trip_controller.g.dart';
 
 @riverpod
-class TripController extends _$AsyncTrip {
+class TripController extends _$TripController {
   Future<Trip> _fetchTrip(String tripId) async {
     final tripsRepository = ref.read(tripsRepositoryProvider);
     return await tripsRepository.getTrip(tripId);

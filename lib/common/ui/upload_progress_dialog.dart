@@ -14,7 +14,7 @@ class UploadProgressDialog extends ConsumerWidget {
         padding: const EdgeInsets.symmetric(vertical: 20),
         child: ValueListenableBuilder(
           valueListenable:
-              ref.read(asyncTripProvider('').notifier).uploadProgress(),
+              ref.read(tripControllerProvider('').notifier).uploadProgress(),
           builder: (context, value, child) {
             return Column(
               mainAxisSize: MainAxisSize.min,

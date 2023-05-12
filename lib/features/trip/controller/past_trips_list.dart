@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'past_trips_list.g.dart';
 
 @riverpod
-class PastTripsList extends _$AsyncPastTrips {
+class PastTripsList extends _$PastTripsList {
   Future<List<Trip>> _fetchTrips() async {
     final tripsRepository = ref.read(tripsRepositoryProvider);
     final trips = await tripsRepository.getPastTrips();

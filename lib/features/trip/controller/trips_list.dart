@@ -6,7 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'trips_list.g.dart';
 
 @riverpod
-class TripsList extends _$AsyncTrips {
+class TripsList extends _$TripsList {
   Future<List<Trip>> _fetchTrips() async {
     final tripsRepository = ref.read(tripsRepositoryProvider);
     final trips = await tripsRepository.getTrips();

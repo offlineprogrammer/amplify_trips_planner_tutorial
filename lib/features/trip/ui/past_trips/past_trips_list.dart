@@ -12,7 +12,7 @@ class PastTripsList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tripsListValue = ref.watch(asyncPastTripsProvider);
+    final tripsListValue = ref.watch(pastTripsListProvider);
 
     return Scaffold(
       appBar: AppBar(

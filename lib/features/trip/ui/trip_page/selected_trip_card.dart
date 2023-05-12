@@ -42,7 +42,7 @@ class SelectedTripCard extends ConsumerWidget {
         });
 
     return await ref
-        .read(asyncTripProvider(trip.id).notifier)
+        .read(tripControllerProvider(trip.id).notifier)
         .uploadFile(file, trip);
   }
 
@@ -56,7 +56,7 @@ class SelectedTripCard extends ConsumerWidget {
     value ??= false;
 
     if (value) {
-      await ref.read(asyncTripsProvider.notifier).removeTrip(trip);
+      await ref.read(tripsListProvider.notifier).removeTrip(trip);
     }
     return value;
   }
@@ -126,7 +126,7 @@ class SelectedTripCard extends ConsumerWidget {
                     ref: ref,
                   ).then((value) {
                     Navigator.of(context, rootNavigator: true).pop();
-                    ref.refresh(asyncTripProvider(trip.id));
+                    ref.refresh(tripControllerProvider(trip.id));
                   });
                 },
                 icon: const Icon(Icons.camera_enhance_sharp),
