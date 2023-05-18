@@ -86,7 +86,7 @@ class ActivityPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final activityValue = ref.watch(activityControllerProvider(activityId));
-    print(activityValue.value?.activityName);
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -104,7 +104,7 @@ class ActivityPage extends ConsumerWidget {
               icon: const Icon(Icons.arrow_back),
             ),
             error: (e, st) => const Placeholder(),
-            loading: () => const Placeholder(),
+            loading: () => const SizedBox(),
           ),
           backgroundColor: const Color(constants.primaryColorDark),
         ),

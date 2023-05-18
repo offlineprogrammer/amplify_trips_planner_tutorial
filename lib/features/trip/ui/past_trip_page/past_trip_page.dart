@@ -39,39 +39,35 @@ class PastTripPage extends ConsumerWidget {
         body: ColorFiltered(
           colorFilter: const ColorFilter.matrix(constants.greyoutMatrix),
           child: tripValue.when(
-            data: (trip) => trip == null
-                ? const Center(
-                    child: Text('Trip Not Found'),
-                  )
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      SelectedPastTripCard(trip: trip),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const Divider(
-                        height: 20,
-                        thickness: 5,
-                        indent: 20,
-                        endIndent: 20,
-                      ),
-                      const Text(
-                        'Your Activities',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                    ],
+            data: (trip) => Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(
+                  height: 8,
+                ),
+                SelectedPastTripCard(trip: trip),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Divider(
+                  height: 20,
+                  thickness: 5,
+                  indent: 20,
+                  endIndent: 20,
+                ),
+                const Text(
+                  'Your Activities',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+              ],
+            ),
             error: (e, st) => const Center(
               child: Text('Error'),
             ),
