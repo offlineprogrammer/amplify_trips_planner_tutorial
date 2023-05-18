@@ -202,7 +202,7 @@ class EditActivityPage extends HookConsumerWidget {
                         ref
                             .watch(activityControllerProvider(activity.id)
                                 .notifier)
-                            .updateTrip(updatedActivity);
+                            .updateActivity(updatedActivity);
 
                         context.goNamed(
                           AppRoute.activity.name,

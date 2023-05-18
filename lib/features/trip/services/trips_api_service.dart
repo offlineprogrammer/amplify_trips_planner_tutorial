@@ -70,7 +70,6 @@ class TripsAPIService {
         safePrint('errors: ${response.errors}');
         return;
       }
-      safePrint('Mutation result: ${createdTrip.tripName}');
     } on Exception catch (error) {
       debugPrint(error.toString());
     }
