@@ -27,7 +27,7 @@ class ActivityController extends _$ActivityController {
           await ref.read(storageServiceProvider).getImageUrl(fileKey);
       final updatedActivity = activity.copyWith(
           activityImageKey: fileKey, activityImageUrl: imageUrl);
-      // await ref.read(activitiesRepositoryProvider).update(updatedActivity);
+      updateActivity(updatedActivity);
       ref.read(storageServiceProvider).resetUploadProgress();
     }
   }
