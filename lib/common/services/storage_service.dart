@@ -59,9 +59,3 @@ class StorageService {
 final storageServiceProvider = Provider<StorageService>((ref) {
   return StorageService(ref: ref);
 });
-
-final imageUrlProvider =
-    FutureProvider.autoDispose.family<String, String>((ref, key) {
-  final storageService = ref.watch(storageServiceProvider);
-  return storageService.getImageUrl(key);
-});

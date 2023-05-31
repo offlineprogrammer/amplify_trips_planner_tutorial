@@ -72,15 +72,17 @@ class ActivityPage extends ConsumerWidget {
     PlatformFile platformFile = result.files.first;
 
     final file = File(platformFile.path!);
-    showDialog<String>(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return const UploadProgressDialog();
-        });
-    await ref
-        .watch(activityControllerProvider(activity.id).notifier)
-        .uploadFile(file, activity);
+    if (context.mounted) {
+      showDialog<String>(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return const UploadProgressDialog();
+          });
+      await ref
+          .watch(activityControllerProvider(activity.id).notifier)
+          .uploadFile(file, activity);
+    }
   }
 
   @override

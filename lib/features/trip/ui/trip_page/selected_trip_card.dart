@@ -34,16 +34,18 @@ class SelectedTripCard extends ConsumerWidget {
       return;
     }
     final file = File(pickedFile.path);
-    showDialog<String>(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return const UploadProgressDialog();
-        });
+    if (context.mounted) {
+      showDialog<String>(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return const UploadProgressDialog();
+          });
 
-    return await ref
-        .watch(tripControllerProvider(trip.id).notifier)
-        .uploadFile(file, trip);
+      return await ref
+          .watch(tripControllerProvider(trip.id).notifier)
+          .uploadFile(file, trip);
+    }
   }
 
   Future<bool> deleteTrip(
@@ -126,7 +128,7 @@ class SelectedTripCard extends ConsumerWidget {
                     ref: ref,
                   ).then((value) {
                     Navigator.of(context, rootNavigator: true).pop();
-                    ref.refresh(tripControllerProvider(trip.id));
+                    ref.invalidate(tripControllerProvider(trip.id));
                   });
                 },
                 icon: const Icon(Icons.camera_enhance_sharp),

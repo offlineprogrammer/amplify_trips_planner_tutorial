@@ -95,7 +95,7 @@ class TripPage extends ConsumerWidget {
               Text(e.toString()),
               TextButton(
                   onPressed: () async {
-                    ref.refresh(tripControllerProvider(tripId));
+                    ref.invalidate(tripControllerProvider(tripId));
                   },
                   child: const Text('Try again')),
             ],

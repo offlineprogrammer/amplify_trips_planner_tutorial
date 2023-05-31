@@ -118,7 +118,7 @@ class ProfilePage extends ConsumerWidget {
                     textStyle: const TextStyle(fontSize: 20),
                   ),
                   onPressed: () async {
-                    ref.refresh(profileControllerProvider);
+                    ref.invalidate(profileControllerProvider);
                   },
                   child: const Text('Try again'),
                 ),
