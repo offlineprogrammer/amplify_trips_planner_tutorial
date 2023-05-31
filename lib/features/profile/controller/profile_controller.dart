@@ -1,25 +1,27 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:amplify_trips_planner/features/profile/data/profile_repository.dart';
 import 'package:amplify_trips_planner/models/ModelProvider.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final profileControllerProvider = Provider<ProfileController>((ref) {
-  return ProfileController(ref);
-});
+part 'profile_controller.g.dart';
 
-final profileProvider = StreamProvider.autoDispose<Profile>((ref) {
-  final profcontrollerProvider = ref.watch(profileControllerProvider);
-  return profcontrollerProvider.listenToProfile();
-});
-
-class ProfileController {
-  ProfileController(this.ref);
-  final Ref ref;
-
-  Stream<Profile> listenToProfile() {
-    return ref.read(profileRepositoryProvider).listenToProfile();
+@riverpod
+class ProfileController extends _$ProfileController {
+  Future<Profile> _fetchProfile() async {
+    final profileRepository = ref.read(profileRepositoryProvider);
+    return await profileRepository.getProfile();
   }
 
-  Future<void> edit(Profile updatedProfile) async {
-    await ref.read(profileRepositoryProvider).update(updatedProfile);
+  @override
+  FutureOr<Profile> build() async {
+    return _fetchProfile();
+  }
+
+  Future<void> updateProfile(Profile profile) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      final profileRepository = ref.read(profileRepositoryProvider);
+      await profileRepository.update(profile);
+      return _fetchProfile();
+    });
   }
 }
