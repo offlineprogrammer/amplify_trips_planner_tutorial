@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_trips_planner/models/Trip.dart';
-import 'package:flutter/material.dart';
+
+import 'package:amplify_trips_planner/models/ModelProvider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final tripsAPIServiceProvider = Provider<TripsAPIService>((ref) {

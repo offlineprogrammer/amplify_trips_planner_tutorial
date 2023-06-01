@@ -12,6 +12,32 @@ class AddTripBottomSheet extends ConsumerWidget {
 
   final formGlobalKey = GlobalKey<FormState>();
 
+  static TextFormField createTextFormField({
+    required String labelText,
+    required TextEditingController controller,
+    required TextInputType keyboardType,
+    Function()? onTap,
+  }) {
+    return TextFormField(
+      controller: controller,
+      keyboardType: keyboardType,
+      autofocus: true,
+      autocorrect: false,
+      textInputAction: TextInputAction.next,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter a value';
+        }
+
+        return null;
+      },
+      decoration: InputDecoration(
+        labelText: labelText,
+      ),
+      onTap: onTap,
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final tripNameController = TextEditingController();
@@ -32,54 +58,26 @@ class AddTripBottomSheet extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextFormField(
+            createTextFormField(
+              labelText: 'Trip Name',
               controller: tripNameController,
               keyboardType: TextInputType.name,
-              validator: (value) {
-                const validationError = 'Enter a valid trip name';
-                if (value == null || value.isEmpty) {
-                  return validationError;
-                }
-
-                return null;
-              },
-              autofocus: true,
-              autocorrect: false,
-              decoration: const InputDecoration(hintText: "Trip Name"),
-              textInputAction: TextInputAction.next,
             ),
             const SizedBox(
               height: 20,
             ),
-            TextFormField(
-              keyboardType: TextInputType.name,
+            createTextFormField(
+              labelText: 'Trip Destination',
               controller: destinationController,
-              autofocus: true,
-              autocorrect: false,
-              decoration: const InputDecoration(hintText: "Trip Destination"),
-              textInputAction: TextInputAction.next,
-              validator: (value) {
-                if (value != null && value.isNotEmpty) {
-                  return null;
-                } else {
-                  return 'Enter a valid destination';
-                }
-              },
+              keyboardType: TextInputType.name,
             ),
-            TextFormField(
-              keyboardType: TextInputType.datetime,
+            const SizedBox(
+              height: 20,
+            ),
+            createTextFormField(
+              labelText: 'Start Date',
               controller: startDateController,
-              autofocus: true,
-              autocorrect: false,
-              decoration: const InputDecoration(hintText: "Start Date"),
-              textInputAction: TextInputAction.next,
-              validator: (value) {
-                if (value != null && value.isNotEmpty) {
-                  return null;
-                } else {
-                  return 'Enter a valid date';
-                }
-              },
+              keyboardType: TextInputType.datetime,
               onTap: () async {
                 DateTime? pickedDate = await showDatePicker(
                     context: context,
@@ -94,20 +92,13 @@ class AddTripBottomSheet extends ConsumerWidget {
                 } else {}
               },
             ),
-            TextFormField(
-              keyboardType: TextInputType.datetime,
+            const SizedBox(
+              height: 20,
+            ),
+            createTextFormField(
+              labelText: 'End Date',
               controller: endDateController,
-              autofocus: true,
-              autocorrect: false,
-              decoration: const InputDecoration(hintText: "End Date"),
-              textInputAction: TextInputAction.next,
-              validator: (value) {
-                if (value != null && value.isNotEmpty) {
-                  return null;
-                } else {
-                  return 'Enter a valid date';
-                }
-              },
+              keyboardType: TextInputType.datetime,
               onTap: () async {
                 if (startDateController.text.isNotEmpty) {
                   DateTime? pickedDate = await showDatePicker(
