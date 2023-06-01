@@ -1,3 +1,4 @@
+import 'package:amplify_trips_planner/common/ui/bottomsheet_text_form_field.dart';
 import 'package:amplify_trips_planner/features/trip/controller/trips_list.dart';
 
 import 'package:flutter/material.dart';
@@ -11,32 +12,6 @@ class AddTripBottomSheet extends ConsumerWidget {
   });
 
   final formGlobalKey = GlobalKey<FormState>();
-
-  static TextFormField createTextFormField({
-    required String labelText,
-    required TextEditingController controller,
-    required TextInputType keyboardType,
-    Function()? onTap,
-  }) {
-    return TextFormField(
-      controller: controller,
-      keyboardType: keyboardType,
-      autofocus: true,
-      autocorrect: false,
-      textInputAction: TextInputAction.next,
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter a value';
-        }
-
-        return null;
-      },
-      decoration: InputDecoration(
-        labelText: labelText,
-      ),
-      onTap: onTap,
-    );
-  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -58,7 +33,7 @@ class AddTripBottomSheet extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            createTextFormField(
+            BottomSheetTextFormField(
               labelText: 'Trip Name',
               controller: tripNameController,
               keyboardType: TextInputType.name,
@@ -66,7 +41,7 @@ class AddTripBottomSheet extends ConsumerWidget {
             const SizedBox(
               height: 20,
             ),
-            createTextFormField(
+            BottomSheetTextFormField(
               labelText: 'Trip Destination',
               controller: destinationController,
               keyboardType: TextInputType.name,
@@ -74,7 +49,7 @@ class AddTripBottomSheet extends ConsumerWidget {
             const SizedBox(
               height: 20,
             ),
-            createTextFormField(
+            BottomSheetTextFormField(
               labelText: 'Start Date',
               controller: startDateController,
               keyboardType: TextInputType.datetime,
@@ -89,13 +64,13 @@ class AddTripBottomSheet extends ConsumerWidget {
                   String formattedDate =
                       DateFormat('yyyy-MM-dd').format(pickedDate);
                   startDateController.text = formattedDate;
-                } else {}
+                }
               },
             ),
             const SizedBox(
               height: 20,
             ),
-            createTextFormField(
+            BottomSheetTextFormField(
               labelText: 'End Date',
               controller: endDateController,
               keyboardType: TextInputType.datetime,

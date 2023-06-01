@@ -1,5 +1,6 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_trips_planner/common/navigation/router/routes.dart';
+import 'package:amplify_trips_planner/common/ui/bottomsheet_text_form_field.dart';
 import 'package:amplify_trips_planner/features/trip/controller/trip_controller.dart';
 
 import 'package:amplify_trips_planner/models/ModelProvider.dart';
@@ -60,58 +61,26 @@ class EditTripPage extends ConsumerWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextFormField(
-                  //initialValue: trip.tripName,
+                BottomSheetTextFormField(
+                  labelText: 'Trip Name',
                   controller: tripNameController,
                   keyboardType: TextInputType.name,
-                  validator: (value) {
-                    const validationError = 'Enter a valid trip name';
-                    if (value == null || value.isEmpty) {
-                      return validationError;
-                    }
-
-                    return null;
-                  },
-                  autofocus: true,
-                  autocorrect: false,
-                  decoration: const InputDecoration(hintText: "Trip Name"),
-                  textInputAction: TextInputAction.next,
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                TextFormField(
-                  //initialValue: trip.destination,
-                  keyboardType: TextInputType.name,
+                BottomSheetTextFormField(
+                  labelText: 'Trip Destination',
                   controller: destinationController,
-                  autofocus: true,
-                  autocorrect: false,
-                  decoration:
-                      const InputDecoration(hintText: "Trip Destination"),
-                  textInputAction: TextInputAction.next,
-                  validator: (value) {
-                    if (value != null && value.isNotEmpty) {
-                      return null;
-                    } else {
-                      return 'Enter a valid destination';
-                    }
-                  },
+                  keyboardType: TextInputType.name,
                 ),
-                TextFormField(
-                  // initialValue: trip.startDate.toString(),
-                  keyboardType: TextInputType.datetime,
+                const SizedBox(
+                  height: 20,
+                ),
+                BottomSheetTextFormField(
+                  labelText: 'Start Date',
                   controller: startDateController,
-                  autofocus: true,
-                  autocorrect: false,
-                  decoration: const InputDecoration(hintText: "Start Date"),
-                  textInputAction: TextInputAction.next,
-                  validator: (value) {
-                    if (value != null && value.isNotEmpty) {
-                      return null;
-                    } else {
-                      return 'Enter a valid date';
-                    }
-                  },
+                  keyboardType: TextInputType.datetime,
                   onTap: () async {
                     DateTime? pickedDate = await showDatePicker(
                         context: context,
@@ -123,24 +92,16 @@ class EditTripPage extends ConsumerWidget {
                       String formattedDate =
                           DateFormat('yyyy-MM-dd').format(pickedDate);
                       startDateController.text = formattedDate;
-                    } else {}
-                  },
-                ),
-                TextFormField(
-                  //  initialValue: trip.endDate.toString(),
-                  keyboardType: TextInputType.datetime,
-                  controller: endDateController,
-                  autofocus: true,
-                  autocorrect: false,
-                  decoration: const InputDecoration(hintText: "End Date"),
-                  textInputAction: TextInputAction.next,
-                  validator: (value) {
-                    if (value != null && value.isNotEmpty) {
-                      return null;
-                    } else {
-                      return 'Enter a valid date';
                     }
                   },
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                BottomSheetTextFormField(
+                  labelText: 'End Date',
+                  controller: endDateController,
+                  keyboardType: TextInputType.datetime,
                   onTap: () async {
                     if (startDateController.text.isNotEmpty) {
                       DateTime? pickedDate = await showDatePicker(

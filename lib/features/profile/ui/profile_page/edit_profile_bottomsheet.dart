@@ -1,3 +1,4 @@
+import 'package:amplify_trips_planner/common/ui/bottomsheet_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:amplify_trips_planner/features/profile/controller/profile_controller.dart';
@@ -35,54 +36,26 @@ class EditProfileBottomSheet extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextFormField(
+            BottomSheetTextFormField(
+              labelText: 'First Name',
               controller: firstNameController,
               keyboardType: TextInputType.name,
-              validator: (value) {
-                const validationError = 'Enter a valid name';
-                if (value == null || value.isEmpty) {
-                  return validationError;
-                }
-
-                return null;
-              },
-              autofocus: true,
-              autocorrect: false,
-              decoration: const InputDecoration(hintText: "First Name"),
-              textInputAction: TextInputAction.next,
             ),
             const SizedBox(
               height: 20,
             ),
-            TextFormField(
-              keyboardType: TextInputType.name,
+            BottomSheetTextFormField(
+              labelText: 'Last Name',
               controller: lastNameController,
-              autofocus: true,
-              autocorrect: false,
-              decoration: const InputDecoration(hintText: "Last Name"),
-              textInputAction: TextInputAction.next,
-              validator: (value) {
-                if (value != null && value.isNotEmpty) {
-                  return null;
-                } else {
-                  return 'Enter a valid name';
-                }
-              },
-            ),
-            TextFormField(
               keyboardType: TextInputType.name,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            BottomSheetTextFormField(
+              labelText: 'Home City',
               controller: homeCityController,
-              autofocus: true,
-              autocorrect: false,
-              decoration: const InputDecoration(hintText: "Home City"),
-              textInputAction: TextInputAction.next,
-              validator: (value) {
-                if (value != null && value.isNotEmpty) {
-                  return null;
-                } else {
-                  return 'Enter a valid city';
-                }
-              },
+              keyboardType: TextInputType.name,
             ),
             const SizedBox(
               height: 20,

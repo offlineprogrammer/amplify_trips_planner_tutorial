@@ -1,3 +1,4 @@
+import 'package:amplify_trips_planner/common/ui/bottomsheet_text_form_field.dart';
 import 'package:amplify_trips_planner/features/activity/controller/activities_list.dart';
 import 'package:amplify_trips_planner/features/trip/controller/trip_controller.dart';
 import 'package:flutter/material.dart';
@@ -60,22 +61,10 @@ class AddActivityPage extends ConsumerWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextFormField(
+                  BottomSheetTextFormField(
+                    labelText: 'Activity Name',
                     controller: activityNameController,
                     keyboardType: TextInputType.name,
-                    validator: (value) {
-                      const validationError = 'Enter a valid activity name';
-                      if (value == null || value.isEmpty) {
-                        return validationError;
-                      }
-
-                      return null;
-                    },
-                    autofocus: true,
-                    autocorrect: false,
-                    decoration:
-                        const InputDecoration(hintText: "Activity Name"),
-                    textInputAction: TextInputAction.next,
                   ),
                   const SizedBox(
                     height: 20,
@@ -99,21 +88,10 @@ class AddActivityPage extends ConsumerWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  TextFormField(
-                    keyboardType: TextInputType.datetime,
+                  BottomSheetTextFormField(
+                    labelText: 'Activity Date',
                     controller: activityDateController,
-                    autofocus: true,
-                    autocorrect: false,
-                    decoration:
-                        const InputDecoration(hintText: "Activity Date"),
-                    textInputAction: TextInputAction.next,
-                    validator: (value) {
-                      if (value != null && value.isNotEmpty) {
-                        return null;
-                      } else {
-                        return 'Enter a valid date';
-                      }
-                    },
+                    keyboardType: TextInputType.datetime,
                     onTap: () async {
                       DateTime? pickedDate = await showDatePicker(
                         context: context,
@@ -132,17 +110,10 @@ class AddActivityPage extends ConsumerWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  TextFormField(
+                  BottomSheetTextFormField(
+                    labelText: 'Activity Time',
                     controller: activityTimeController,
-                    decoration:
-                        const InputDecoration(hintText: "Activity Time"),
-                    validator: (value) {
-                      if (value != null && value.isNotEmpty) {
-                        return null;
-                      } else {
-                        return 'Enter a valid date';
-                      }
-                    },
+                    keyboardType: TextInputType.datetime,
                     onTap: () async {
                       await showTimePicker(
                         context: context,
