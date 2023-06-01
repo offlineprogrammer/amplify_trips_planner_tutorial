@@ -1,8 +1,9 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'package:intl/intl.dart';
 import 'package:amplify_trips_planner/common/navigation/router/routes.dart';
 import 'package:amplify_trips_planner/features/activity/controller/activity_controller.dart';
@@ -10,7 +11,7 @@ import 'package:amplify_trips_planner/features/activity/controller/activity_cont
 import 'package:amplify_trips_planner/common/utils/colors.dart' as constants;
 import 'package:amplify_trips_planner/models/ModelProvider.dart';
 
-class EditActivityPage extends HookConsumerWidget {
+class EditActivityPage extends ConsumerWidget {
   EditActivityPage({
     required this.activity,
     super.key,
@@ -23,19 +24,19 @@ class EditActivityPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final activityNameController =
-        useTextEditingController(text: activity.activityName);
-    final activityDateController = useTextEditingController(
+        TextEditingController(text: activity.activityName);
+    final activityDateController = TextEditingController(
         text: DateFormat('yyyy-MM-dd')
             .format(activity.activityDate.getDateTime()));
 
     var activityTime =
         TimeOfDay.fromDateTime(activity.activityTime!.getDateTime());
-    final activityTimeController = useTextEditingController(
+    final activityTimeController = TextEditingController(
         text:
             DateFormat('hh:mm a').format(activity.activityTime!.getDateTime()));
 
     final activityCategoryController =
-        useTextEditingController(text: activity.category.name);
+        TextEditingController(text: activity.category.name);
 
     var activityCategory = activity.category;
 

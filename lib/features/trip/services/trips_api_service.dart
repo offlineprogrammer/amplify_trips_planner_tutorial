@@ -4,7 +4,7 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_trips_planner/models/Trip.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final tripsAPIServiceProvider = Provider<TripsAPIService>((ref) {
   final service = TripsAPIService();
@@ -21,7 +21,7 @@ class TripsAPIService {
 
       final trips = response.data?.items;
       if (trips == null) {
-        safePrint('errors: ${response.errors}');
+        safePrint('getTrips errors: ${response.errors}');
         return const [];
       }
       trips.sort((a, b) =>
@@ -31,8 +31,9 @@ class TripsAPIService {
           .where((element) =>
               element.endDate.getDateTime().isAfter(DateTime.now()))
           .toList();
-    } on ApiException catch (e) {
-      safePrint('Query failed: $e');
+    } on Exception catch (error) {
+      safePrint('getTrips failed: $error');
+
       return const [];
     }
   }
@@ -44,7 +45,7 @@ class TripsAPIService {
 
       final trips = response.data?.items;
       if (trips == null) {
-        safePrint('errors: ${response.errors}');
+        safePrint('getPastTrips errors: ${response.errors}');
         return const [];
       }
       trips.sort((a, b) =>
@@ -54,8 +55,9 @@ class TripsAPIService {
           .where((element) =>
               element.endDate.getDateTime().isBefore(DateTime.now()))
           .toList();
-    } on ApiException catch (e) {
-      safePrint('Query failed: $e');
+    } on Exception catch (error) {
+      safePrint('getPastTrips failed: $error');
+
       return const [];
     }
   }
@@ -67,11 +69,11 @@ class TripsAPIService {
 
       final createdTrip = response.data;
       if (createdTrip == null) {
-        safePrint('errors: ${response.errors}');
+        safePrint('addTrip errors: ${response.errors}');
         return;
       }
     } on Exception catch (error) {
-      debugPrint(error.toString());
+      safePrint('addTrip failed: $error');
     }
   }
 
@@ -83,7 +85,7 @@ class TripsAPIService {
           )
           .response;
     } on Exception catch (error) {
-      debugPrint(error.toString());
+      safePrint('deleteTrip failed: $error');
     }
   }
 
@@ -95,7 +97,7 @@ class TripsAPIService {
           )
           .response;
     } on Exception catch (error) {
-      debugPrint(error.toString());
+      safePrint('updateTrip failed: $error');
     }
   }
 
@@ -109,9 +111,10 @@ class TripsAPIService {
 
       final trip = response.data!;
       return trip;
-    } on ApiException catch (e) {
-      safePrint('Query failed: $e');
-      throw Exception;
+    } on Exception catch (error) {
+      safePrint('getTrip failed: $error');
+
+      throw getTrip;
     }
   }
 }

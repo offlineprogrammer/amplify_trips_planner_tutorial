@@ -1,10 +1,8 @@
 import 'dart:async';
-
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_trips_planner/models/ModelProvider.dart';
-import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final activitiesAPIServiceProvider = Provider<ActivitiesAPIService>((ref) {
   final service = ActivitiesAPIService();
@@ -32,8 +30,8 @@ class ActivitiesAPIService {
           .getDateTime()
           .compareTo(b!.activityDate.getDateTime()));
       return activites.map((e) => e as Activity).toList();
-    } on ApiException catch (e) {
-      safePrint('Query failed: $e');
+    } on Exception catch (error) {
+      safePrint('getActivitiesForTrip failed: $error');
       return const [];
     }
   }
@@ -49,7 +47,7 @@ class ActivitiesAPIService {
         return;
       }
     } on Exception catch (error) {
-      debugPrint(error.toString());
+      safePrint('addActivity failed: $error');
     }
   }
 
@@ -61,7 +59,7 @@ class ActivitiesAPIService {
           )
           .response;
     } on Exception catch (error) {
-      debugPrint(error.toString());
+      safePrint('deleteActivity failed: $error');
     }
   }
 
@@ -73,7 +71,7 @@ class ActivitiesAPIService {
           )
           .response;
     } on Exception catch (error) {
-      debugPrint(error.toString());
+      safePrint('updateActivity failed: $error');
     }
   }
 
@@ -87,8 +85,8 @@ class ActivitiesAPIService {
 
       final activity = response.data!;
       return activity;
-    } on ApiException catch (e) {
-      safePrint('Query failed: $e');
+    } on Exception catch (error) {
+      safePrint('getActivity failed: $error');
       throw Exception;
     }
   }

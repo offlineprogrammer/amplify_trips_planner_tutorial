@@ -1,12 +1,16 @@
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'dart:io';
 import 'package:aws_common/vm.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 import 'package:path/path.dart' as p;
+
+final storageServiceProvider = Provider<StorageService>((ref) {
+  return StorageService(ref: ref);
+});
 
 class StorageService {
   StorageService({
@@ -55,7 +59,3 @@ class StorageService {
     uploadProgress.value = 0;
   }
 }
-
-final storageServiceProvider = Provider<StorageService>((ref) {
-  return StorageService(ref: ref);
-});

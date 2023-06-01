@@ -1,11 +1,11 @@
 import 'package:amplify_trips_planner/features/trip/controller/trips_list.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-class AddTripBottomSheet extends HookConsumerWidget {
+class AddTripBottomSheet extends ConsumerWidget {
   AddTripBottomSheet({
     super.key,
   });
@@ -14,10 +14,10 @@ class AddTripBottomSheet extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tripNameController = useTextEditingController();
-    final destinationController = useTextEditingController();
-    final startDateController = useTextEditingController();
-    final endDateController = useTextEditingController();
+    final tripNameController = TextEditingController();
+    final destinationController = TextEditingController();
+    final startDateController = TextEditingController();
+    final endDateController = TextEditingController();
 
     return Form(
       key: formGlobalKey,
