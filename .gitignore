@@ -66,3 +66,5 @@ amplifytools.xcconfig
 #amplify-do-not-edit-end
 lib/test.dart
 lib/somthing.md
+
+team-provider-info.json
