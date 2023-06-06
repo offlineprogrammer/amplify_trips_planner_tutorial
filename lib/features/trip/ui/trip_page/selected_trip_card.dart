@@ -23,7 +23,7 @@ class SelectedTripCard extends ConsumerWidget {
 
   final Trip trip;
 
-  Future<void> uploadImage({
+  Future<bool> uploadImage({
     required BuildContext context,
     required WidgetRef ref,
     required Trip trip,
@@ -31,7 +31,7 @@ class SelectedTripCard extends ConsumerWidget {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile == null) {
-      return;
+      return false;
     }
     final file = File(pickedFile.path);
     if (context.mounted) {
@@ -42,10 +42,12 @@ class SelectedTripCard extends ConsumerWidget {
             return const UploadProgressDialog();
           });
 
-      return await ref
+      await ref
           .watch(tripControllerProvider(trip.id).notifier)
           .uploadFile(file, trip);
     }
+
+    return true;
   }
 
   Future<bool> deleteTrip(
@@ -127,8 +129,10 @@ class SelectedTripCard extends ConsumerWidget {
                     trip: trip,
                     ref: ref,
                   ).then((value) {
-                    Navigator.of(context, rootNavigator: true).pop();
-                    ref.invalidate(tripControllerProvider(trip.id));
+                    if (value) {
+                      Navigator.of(context, rootNavigator: true).pop();
+                      ref.invalidate(tripControllerProvider(trip.id));
+                    }
                   });
                 },
                 icon: const Icon(Icons.camera_enhance_sharp),

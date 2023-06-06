@@ -55,7 +55,7 @@ class ActivityPage extends ConsumerWidget {
     await launchUrl(url);
   }
 
-  Future<void> uploadFile({
+  Future<bool> uploadFile({
     required BuildContext context,
     required WidgetRef ref,
     required Activity activity,
@@ -66,7 +66,7 @@ class ActivityPage extends ConsumerWidget {
     );
 
     if (result == null) {
-      return;
+      return false;
     }
 
     PlatformFile platformFile = result.files.first;
@@ -83,6 +83,7 @@ class ActivityPage extends ConsumerWidget {
           .watch(activityControllerProvider(activity.id).notifier)
           .uploadFile(file, activity);
     }
+    return true;
   }
 
   @override
@@ -203,7 +204,9 @@ class ActivityPage extends ConsumerWidget {
                               context: context,
                               activity: activity,
                               ref: ref,
-                            ).then((value) => context.pop());
+                            ).then(
+                              (value) => value ? context.pop() : null,
+                            );
                             // Navigator.of(context, rootNavigator: true)
                             //     .pop());
                           },
