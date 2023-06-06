@@ -1,11 +1,11 @@
 enum AppRoute {
   home,
   trip,
-  edittrip,
-  pasttrips,
-  pasttrip,
+  editTrip,
+  pastTrips,
+  pastTrip,
   activity,
-  addactivity,
-  editactivity,
+  addActivity,
+  editActivity,
   profile,
 }

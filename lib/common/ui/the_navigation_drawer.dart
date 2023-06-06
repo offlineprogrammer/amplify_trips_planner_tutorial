@@ -43,7 +43,7 @@ class TheNavigationDrawer extends ConsumerWidget {
             title: const Text('Past Trips'),
             onTap: () {
               context.goNamed(
-                AppRoute.pasttrips.name,
+                AppRoute.pastTrips.name,
               );
             },
           ),

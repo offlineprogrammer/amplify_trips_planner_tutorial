@@ -226,7 +226,7 @@ class ActivityPage extends ConsumerWidget {
                       ),
                       onPressed: () {
                         context.goNamed(
-                          AppRoute.editactivity.name,
+                          AppRoute.editActivity.name,
                           pathParameters: {'id': activity.id},
                           extra: activity,
                         );

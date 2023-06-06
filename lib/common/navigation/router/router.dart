@@ -28,7 +28,7 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/edittrip/:id',
-      name: AppRoute.edittrip.name,
+      name: AppRoute.editTrip.name,
       builder: (context, state) {
         return EditTripPage(
           trip: state.extra! as Trip,
@@ -37,12 +37,12 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/pasttrips',
-      name: AppRoute.pasttrips.name,
+      name: AppRoute.pastTrips.name,
       builder: (context, state) => const PastTripsList(),
     ),
     GoRoute(
       path: '/pasttrip/:id',
-      name: AppRoute.pasttrip.name,
+      name: AppRoute.pastTrip.name,
       builder: (context, state) {
         final tripId = state.pathParameters['id']!;
         return PastTripPage(tripId: tripId);
@@ -50,7 +50,7 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/addActivity/:id',
-      name: AppRoute.addactivity.name,
+      name: AppRoute.addActivity.name,
       builder: (context, state) {
         final tripId = state.pathParameters['id']!;
         return AddActivityPage(tripId: tripId);
@@ -66,7 +66,7 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/editactivity/:id',
-      name: AppRoute.editactivity.name,
+      name: AppRoute.editActivity.name,
       builder: (context, state) {
         return EditActivityPage(
           activity: state.extra! as Activity,

@@ -113,7 +113,7 @@ class SelectedTripCard extends ConsumerWidget {
               IconButton(
                 onPressed: () {
                   context.goNamed(
-                    AppRoute.edittrip.name,
+                    AppRoute.editTrip.name,
                     pathParameters: {'id': trip.id},
                     extra: trip,
                   );

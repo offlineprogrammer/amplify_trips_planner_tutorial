@@ -22,7 +22,7 @@ class TripGridViewItem extends StatelessWidget {
       borderRadius: BorderRadius.circular(15),
       onTap: () {
         context.goNamed(
-          isPast ? AppRoute.pasttrip.name : AppRoute.trip.name,
+          isPast ? AppRoute.pastTrip.name : AppRoute.trip.name,
           pathParameters: {'id': trip.id},
           extra: trip,
         );

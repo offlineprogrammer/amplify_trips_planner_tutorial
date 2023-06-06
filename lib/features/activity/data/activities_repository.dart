@@ -1,4 +1,4 @@
-import 'package:amplify_trips_planner/features/activity/services/activities_api_service.dart';
+import 'package:amplify_trips_planner/features/activity/service/activities_api_service.dart';
 import 'package:amplify_trips_planner/models/ModelProvider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -24,14 +24,14 @@ class ActivitiesRepository {
   }
 
   Future<void> add(Activity activity) async {
-    await activitiesAPIService.addActivity(activity);
+    return activitiesAPIService.addActivity(activity);
   }
 
   Future<void> delete(Activity activity) async {
-    await activitiesAPIService.deleteActivity(activity);
+    return activitiesAPIService.deleteActivity(activity);
   }
 
   Future<void> update(Activity activity) async {
-    await activitiesAPIService.updateActivity(activity);
+    return activitiesAPIService.updateActivity(activity);
   }
 }

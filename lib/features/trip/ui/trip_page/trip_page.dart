@@ -44,7 +44,7 @@ class TripPage extends ConsumerWidget {
         data: (trip) => FloatingActionButton(
           onPressed: () {
             context.goNamed(
-              AppRoute.addactivity.name,
+              AppRoute.addActivity.name,
               pathParameters: {'id': tripId},
             );
           },

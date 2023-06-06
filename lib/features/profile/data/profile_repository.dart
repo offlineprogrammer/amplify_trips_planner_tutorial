@@ -1,4 +1,4 @@
-import 'package:amplify_trips_planner/features/profile/services/profile_api_service.dart';
+import 'package:amplify_trips_planner/features/profile/service/profile_api_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:amplify_trips_planner/models/ModelProvider.dart';
@@ -17,6 +17,6 @@ class ProfileRepository {
   }
 
   Future<void> update(Profile updatedProfile) async {
-    await profileAPIService.updateProfile(updatedProfile);
+    return profileAPIService.updateProfile(updatedProfile);
   }
 }

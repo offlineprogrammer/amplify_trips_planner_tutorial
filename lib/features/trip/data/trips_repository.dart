@@ -1,4 +1,4 @@
-import 'package:amplify_trips_planner/features/trip/services/trips_api_service.dart';
+import 'package:amplify_trips_planner/features/trip/service/trips_api_service.dart';
 
 import 'package:amplify_trips_planner/models/Trip.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,18 +22,18 @@ class TripsRepository {
   }
 
   Future<void> add(Trip trip) async {
-    await tripsAPIService.addTrip(trip);
+    return tripsAPIService.addTrip(trip);
   }
 
   Future<void> update(Trip updatedTrip) async {
-    await tripsAPIService.updateTrip(updatedTrip);
+    return tripsAPIService.updateTrip(updatedTrip);
   }
 
   Future<void> delete(Trip deletedTrip) async {
-    await tripsAPIService.deleteTrip(deletedTrip);
+    return tripsAPIService.deleteTrip(deletedTrip);
   }
 
   Future<Trip> getTrip(String tripId) async {
-    return await tripsAPIService.getTrip(tripId);
+    return tripsAPIService.getTrip(tripId);
   }
 }
