@@ -1,6 +1,7 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_trips_planner/common/navigation/router/routes.dart';
 import 'package:amplify_trips_planner/common/ui/bottomsheet_text_form_field.dart';
+import 'package:amplify_trips_planner/common/utils/date_time_formatter.dart';
 import 'package:amplify_trips_planner/features/trip/controller/trip_controller.dart';
 
 import 'package:amplify_trips_planner/models/ModelProvider.dart';
@@ -8,8 +9,6 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
-import 'package:intl/intl.dart';
 import 'package:amplify_trips_planner/common/utils/colors.dart' as constants;
 
 class EditTripPage extends ConsumerWidget {
@@ -26,9 +25,10 @@ class EditTripPage extends ConsumerWidget {
     final tripNameController = TextEditingController(text: trip.tripName);
     final destinationController = TextEditingController(text: trip.destination);
     final startDateController = TextEditingController(
-        text: DateFormat('yyyy-MM-dd').format(trip.startDate.getDateTime()));
+        text: trip.startDate.getDateTime().format('yyyy-MM-dd'));
+
     final endDateController = TextEditingController(
-        text: DateFormat('yyyy-MM-dd').format(trip.endDate.getDateTime()));
+        text: trip.endDate.getDateTime().format('yyyy-MM-dd'));
 
     return Scaffold(
       appBar: AppBar(
@@ -89,9 +89,8 @@ class EditTripPage extends ConsumerWidget {
                         lastDate: DateTime(2101));
 
                     if (pickedDate != null) {
-                      String formattedDate =
-                          DateFormat('yyyy-MM-dd').format(pickedDate);
-                      startDateController.text = formattedDate;
+                      startDateController.text =
+                          pickedDate.format('yyyy-MM-dd');
                     }
                   },
                 ),
@@ -111,10 +110,8 @@ class EditTripPage extends ConsumerWidget {
                           lastDate: DateTime(2101));
 
                       if (pickedDate != null) {
-                        String formattedDate =
-                            DateFormat('yyyy-MM-dd').format(pickedDate);
-
-                        endDateController.text = formattedDate;
+                        endDateController.text =
+                            pickedDate.format('yyyy-MM-dd');
                       }
                     }
                   },

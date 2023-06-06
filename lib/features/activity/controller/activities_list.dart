@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_trips_planner/common/utils/date_time_formatter.dart';
 import 'package:amplify_trips_planner/features/activity/data/activities_repository.dart';
 import 'package:amplify_trips_planner/models/ModelProvider.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'activities_list.g.dart';
 
@@ -40,12 +40,11 @@ class ActivitiesList extends _$ActivitiesList {
     final now = DateTime.now();
     final time = DateTime(
         now.year, now.month, now.day, activityTime.hour, activityTime.minute);
-    final format = DateFormat("HH:mm:ss.sss");
 
     Activity activity = Activity(
       activityName: name,
       activityDate: TemporalDate(DateTime.parse(activityDate)),
-      activityTime: TemporalTime.fromString(format.format(time)),
+      activityTime: TemporalTime.fromString(time.format('HH:mm:ss.sss')),
       trip: trip,
       category: category,
     );

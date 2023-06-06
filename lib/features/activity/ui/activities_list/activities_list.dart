@@ -1,7 +1,7 @@
+import 'package:amplify_trips_planner/common/utils/date_time_formatter.dart';
 import 'package:amplify_trips_planner/features/activity/controller/activities_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:amplify_trips_planner/common/navigation/router/routes.dart';
 import 'package:amplify_trips_planner/features/activity/ui/activity_category_icon.dart';
 import 'package:go_router/go_router.dart';
@@ -62,16 +62,17 @@ class ActivitiesList extends ConsumerWidget {
                                   height: 5,
                                 ),
                                 Text(
-                                  DateFormat('yyyy-MM-dd').format(
-                                      activities[index]
-                                          .activityDate
-                                          .getDateTime()),
+                                  activities[index]
+                                      .activityDate
+                                      .getDateTime()
+                                      .format('yyyy-MM-dd'),
                                   style: Theme.of(context).textTheme.bodySmall,
                                 ),
                                 Text(
-                                  DateFormat('hh:mm a').format(activities[index]
+                                  activities[index]
                                       .activityTime!
-                                      .getDateTime()),
+                                      .getDateTime()
+                                      .format('hh:mm a'),
                                   style: Theme.of(context).textTheme.bodySmall,
                                 ),
                               ],

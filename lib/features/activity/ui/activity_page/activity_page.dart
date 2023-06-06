@@ -1,11 +1,11 @@
 import 'dart:io';
 
+import 'package:amplify_trips_planner/common/utils/date_time_formatter.dart';
 import 'package:amplify_trips_planner/features/activity/controller/activities_list.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 import 'package:amplify_trips_planner/common/navigation/router/routes.dart';
 import 'package:amplify_trips_planner/common/ui/upload_progress_dialog.dart';
 import 'package:amplify_trips_planner/features/activity/controller/activity_controller.dart';
@@ -138,12 +138,12 @@ class ActivityPage extends ConsumerWidget {
               Card(
                 child: ListTile(
                   title: Text(
-                    DateFormat('EE MMMM dd')
-                        .format(activity.activityDate.getDateTime()),
+                    activity.activityDate.getDateTime().format('EE MMMM dd'),
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
-                  subtitle: Text(DateFormat('hh:mm a')
-                      .format(activity.activityTime!.getDateTime())),
+                  subtitle: Text(
+                    activity.activityTime!.getDateTime().format('hh:mm a'),
+                  ),
                 ),
               ),
               ListTile(

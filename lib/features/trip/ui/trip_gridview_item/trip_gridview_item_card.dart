@@ -1,7 +1,7 @@
+import 'package:amplify_trips_planner/common/utils/date_time_formatter.dart';
 import 'package:amplify_trips_planner/models/ModelProvider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:amplify_trips_planner/common/utils/colors.dart' as constants;
 
 class TripGridViewItemCard extends StatelessWidget {
@@ -89,13 +89,10 @@ class TripGridViewItemCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    DateFormat('MMMM dd, yyyy')
-                        .format(trip.startDate.getDateTime()),
+                    trip.startDate.getDateTime().format('MMMM dd, yyyy'),
                     style: const TextStyle(fontSize: 12),
                   ),
-                  Text(
-                      DateFormat('MMMM dd, yyyy')
-                          .format(trip.endDate.getDateTime()),
+                  Text(trip.endDate.getDateTime().format('MMMM dd, yyyy'),
                       style: const TextStyle(fontSize: 12)),
                 ],
               ),

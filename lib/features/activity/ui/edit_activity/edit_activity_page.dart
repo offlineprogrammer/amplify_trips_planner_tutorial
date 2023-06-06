@@ -1,5 +1,6 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_trips_planner/common/ui/bottomsheet_text_form_field.dart';
+import 'package:amplify_trips_planner/common/utils/date_time_formatter.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -27,14 +28,12 @@ class EditActivityPage extends ConsumerWidget {
     final activityNameController =
         TextEditingController(text: activity.activityName);
     final activityDateController = TextEditingController(
-        text: DateFormat('yyyy-MM-dd')
-            .format(activity.activityDate.getDateTime()));
+        text: activity.activityDate.getDateTime().format('yyyy-MM-dd'));
 
     var activityTime =
         TimeOfDay.fromDateTime(activity.activityTime!.getDateTime());
     final activityTimeController = TextEditingController(
-        text:
-            DateFormat('hh:mm a').format(activity.activityTime!.getDateTime()));
+        text: activity.activityTime!.getDateTime().format('hh:mm a'));
 
     final activityCategoryController =
         TextEditingController(text: activity.category.name);
@@ -116,9 +115,8 @@ class EditActivityPage extends ConsumerWidget {
                     );
 
                     if (pickedDate != null) {
-                      String formattedDate =
-                          DateFormat('yyyy-MM-dd').format(pickedDate);
-                      activityDateController.text = formattedDate;
+                      activityDateController.text =
+                          pickedDate.format('yyyy-MM-dd');
                     } else {}
                   },
                 ),
@@ -173,7 +171,8 @@ class EditActivityPage extends ConsumerWidget {
                             activityDate: TemporalDate(
                                 DateTime.parse(activityDateController.text)),
                             activityTime: TemporalTime.fromString(
-                                DateFormat("HH:mm:ss.sss").format(time)));
+                              time.format('HH:mm:ss.sss'),
+                            ));
 
                         ref
                             .watch(activityControllerProvider(activity.id)

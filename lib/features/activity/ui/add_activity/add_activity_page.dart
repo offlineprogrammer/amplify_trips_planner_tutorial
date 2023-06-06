@@ -1,10 +1,10 @@
 import 'package:amplify_trips_planner/common/ui/bottomsheet_text_form_field.dart';
+import 'package:amplify_trips_planner/common/utils/date_time_formatter.dart';
 import 'package:amplify_trips_planner/features/activity/controller/activities_list.dart';
 import 'package:amplify_trips_planner/features/trip/controller/trip_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 import 'package:amplify_trips_planner/common/navigation/router/routes.dart';
 
 import 'package:amplify_trips_planner/models/ModelProvider.dart';
@@ -101,9 +101,8 @@ class AddActivityPage extends ConsumerWidget {
                       );
 
                       if (pickedDate != null) {
-                        String formattedDate =
-                            DateFormat('yyyy-MM-dd').format(pickedDate);
-                        activityDateController.text = formattedDate;
+                        activityDateController.text =
+                            pickedDate.format('yyyy-MM-dd');
                       } else {}
                     },
                   ),

@@ -1,10 +1,10 @@
 import 'package:amplify_trips_planner/common/ui/bottomsheet_text_form_field.dart';
+import 'package:amplify_trips_planner/common/utils/date_time_formatter.dart';
 import 'package:amplify_trips_planner/features/trip/controller/trips_list.dart';
 
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 
 class AddTripBottomSheet extends ConsumerWidget {
   AddTripBottomSheet({
@@ -61,9 +61,7 @@ class AddTripBottomSheet extends ConsumerWidget {
                     lastDate: DateTime(2101));
 
                 if (pickedDate != null) {
-                  String formattedDate =
-                      DateFormat('yyyy-MM-dd').format(pickedDate);
-                  startDateController.text = formattedDate;
+                  startDateController.text = pickedDate.format('yyyy-MM-dd');
                 }
               },
             ),
@@ -83,10 +81,7 @@ class AddTripBottomSheet extends ConsumerWidget {
                       lastDate: DateTime(2101));
 
                   if (pickedDate != null) {
-                    String formattedDate =
-                        DateFormat('yyyy-MM-dd').format(pickedDate);
-
-                    endDateController.text = formattedDate;
+                    endDateController.text = pickedDate.format('yyyy-MM-dd');
                   }
                 }
               },
