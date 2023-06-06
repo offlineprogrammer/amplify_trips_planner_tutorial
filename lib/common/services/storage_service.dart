@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 
 import 'dart:io';
-import 'package:aws_common/vm.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 import 'package:path/path.dart' as p;
@@ -39,7 +39,7 @@ class StorageService {
     try {
       final extension = p.extension(file.path);
       final key = const Uuid().v1() + extension;
-      final awsFile = AWSFilePlatform.fromFile(file);
+      final awsFile = AWSFile.fromPath(file.path);
 
       await Amplify.Storage.uploadFile(
           localFile: awsFile,

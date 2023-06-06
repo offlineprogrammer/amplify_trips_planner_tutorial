@@ -186,7 +186,7 @@ packages:
     source: hosted
     version: "2.11.0"
   aws_common:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: aws_common
       sha256: "96ce8fe16a514e436f518b9f69df439c65ce46ca2229f1ed83a06c217ee92ee1"
