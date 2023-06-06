@@ -8,7 +8,7 @@ part 'profile_controller.g.dart';
 class ProfileController extends _$ProfileController {
   Future<Profile> _fetchProfile() async {
     final profileRepository = ref.read(profileRepositoryProvider);
-    return await profileRepository.getProfile();
+    return profileRepository.getProfile();
   }
 
   @override

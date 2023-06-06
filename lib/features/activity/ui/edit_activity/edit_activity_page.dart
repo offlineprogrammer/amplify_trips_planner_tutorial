@@ -1,17 +1,14 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_trips_planner/common/navigation/router/routes.dart';
 import 'package:amplify_trips_planner/common/ui/bottomsheet_text_form_field.dart';
+import 'package:amplify_trips_planner/common/utils/colors.dart' as constants;
 import 'package:amplify_trips_planner/common/utils/date_time_formatter.dart';
+import 'package:amplify_trips_planner/features/activity/controller/activity_controller.dart';
+import 'package:amplify_trips_planner/models/ModelProvider.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
 import 'package:intl/intl.dart';
-import 'package:amplify_trips_planner/common/navigation/router/routes.dart';
-import 'package:amplify_trips_planner/features/activity/controller/activity_controller.dart';
-
-import 'package:amplify_trips_planner/common/utils/colors.dart' as constants;
-import 'package:amplify_trips_planner/models/ModelProvider.dart';
 
 class EditActivityPage extends ConsumerWidget {
   EditActivityPage({
@@ -28,12 +25,14 @@ class EditActivityPage extends ConsumerWidget {
     final activityNameController =
         TextEditingController(text: activity.activityName);
     final activityDateController = TextEditingController(
-        text: activity.activityDate.getDateTime().format('yyyy-MM-dd'));
+      text: activity.activityDate.getDateTime().format('yyyy-MM-dd'),
+    );
 
     var activityTime =
         TimeOfDay.fromDateTime(activity.activityTime!.getDateTime());
     final activityTimeController = TextEditingController(
-        text: activity.activityTime!.getDateTime().format('hh:mm a'));
+      text: activity.activityTime!.getDateTime().format('hh:mm a'),
+    );
 
     final activityCategoryController =
         TextEditingController(text: activity.category.name);
@@ -62,10 +61,11 @@ class EditActivityPage extends ConsumerWidget {
           key: formGlobalKey,
           child: Container(
             padding: EdgeInsets.only(
-                top: 15,
-                left: 15,
-                right: 15,
-                bottom: MediaQuery.of(context).viewInsets.bottom + 15),
+              top: 15,
+              left: 15,
+              right: 15,
+              bottom: MediaQuery.of(context).viewInsets.bottom + 15,
+            ),
             width: double.infinity,
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -104,7 +104,7 @@ class EditActivityPage extends ConsumerWidget {
                   controller: activityDateController,
                   keyboardType: TextInputType.datetime,
                   onTap: () async {
-                    DateTime? pickedDate = await showDatePicker(
+                    final pickedDate = await showDatePicker(
                       context: context,
                       initialDate:
                           DateTime.parse(activity.activityDate.toString()),
@@ -148,44 +148,54 @@ class EditActivityPage extends ConsumerWidget {
                   height: 20,
                 ),
                 TextButton(
-                    child: const Text('OK'),
-                    onPressed: () async {
-                      final currentState = formGlobalKey.currentState;
-                      if (currentState == null) {
-                        return;
-                      }
-                      if (currentState.validate()) {
-                        final format = DateFormat.jm();
+                  child: const Text('OK'),
+                  onPressed: () async {
+                    final currentState = formGlobalKey.currentState;
+                    if (currentState == null) {
+                      return;
+                    }
+                    if (currentState.validate()) {
+                      final format = DateFormat.jm();
 
-                        activityTime = TimeOfDay.fromDateTime(
-                            format.parse(activityTimeController.text));
+                      activityTime = TimeOfDay.fromDateTime(
+                        format.parse(activityTimeController.text),
+                      );
 
-                        final now = DateTime.now();
-                        final time = DateTime(now.year, now.month, now.day,
-                            activityTime.hour, activityTime.minute);
+                      final now = DateTime.now();
+                      final time = DateTime(
+                        now.year,
+                        now.month,
+                        now.day,
+                        activityTime.hour,
+                        activityTime.minute,
+                      );
 
-                        final updatedActivity = activity.copyWith(
-                            category: ActivityCategory.values
-                                .byName(activityCategoryController.text),
-                            activityName: activityNameController.text,
-                            activityDate: TemporalDate(
-                                DateTime.parse(activityDateController.text)),
-                            activityTime: TemporalTime.fromString(
-                              time.format('HH:mm:ss.sss'),
-                            ));
+                      final updatedActivity = activity.copyWith(
+                        category: ActivityCategory.values
+                            .byName(activityCategoryController.text),
+                        activityName: activityNameController.text,
+                        activityDate: TemporalDate(
+                          DateTime.parse(activityDateController.text),
+                        ),
+                        activityTime: TemporalTime.fromString(
+                          time.format('HH:mm:ss.sss'),
+                        ),
+                      );
 
-                        ref
-                            .watch(activityControllerProvider(activity.id)
-                                .notifier)
-                            .updateActivity(updatedActivity);
+                      ref
+                          .watch(
+                            activityControllerProvider(activity.id).notifier,
+                          )
+                          .updateActivity(updatedActivity)
+                          .ignore();
 
-                        context.goNamed(
-                          AppRoute.activity.name,
-                          pathParameters: {'id': activity.id},
-                        );
-                      }
-                    } //,
-                    ),
+                      context.goNamed(
+                        AppRoute.activity.name,
+                        pathParameters: {'id': activity.id},
+                      );
+                    }
+                  }, //,
+                ),
               ],
             ),
           ),

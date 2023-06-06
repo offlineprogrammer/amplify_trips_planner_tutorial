@@ -1,12 +1,11 @@
-import 'package:amplify_storage_s3/amplify_storage_s3.dart';
-import 'package:flutter/material.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
-
 import 'dart:io';
 
+import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_storage_s3/amplify_storage_s3.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:uuid/uuid.dart';
 import 'package:path/path.dart' as p;
+import 'package:uuid/uuid.dart';
 
 final storageServiceProvider = Provider<StorageService>((ref) {
   return StorageService(ref: ref);
@@ -42,11 +41,12 @@ class StorageService {
       final awsFile = AWSFile.fromPath(file.path);
 
       await Amplify.Storage.uploadFile(
-          localFile: awsFile,
-          key: key,
-          onProgress: (progress) {
-            uploadProgress.value = progress.fractionCompleted;
-          }).result;
+        localFile: awsFile,
+        key: key,
+        onProgress: (progress) {
+          uploadProgress.value = progress.fractionCompleted;
+        },
+      ).result;
 
       return key;
     } on Exception catch (e) {

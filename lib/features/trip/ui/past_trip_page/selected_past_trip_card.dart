@@ -1,9 +1,8 @@
+import 'package:amplify_trips_planner/common/utils/colors.dart' as constants;
 import 'package:amplify_trips_planner/models/ModelProvider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'package:amplify_trips_planner/common/utils/colors.dart' as constants;
 
 class SelectedPastTripCard extends ConsumerWidget {
   const SelectedPastTripCard({
@@ -18,7 +17,7 @@ class SelectedPastTripCard extends ConsumerWidget {
     return Card(
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
+        borderRadius: BorderRadius.circular(15),
       ),
       elevation: 5,
       child: Column(
@@ -40,17 +39,19 @@ class SelectedPastTripCard extends ConsumerWidget {
             color: const Color(constants.primaryColorDark),
             height: 150,
             child: trip.tripImageUrl != null
-                ? Stack(children: [
-                    const Center(child: CircularProgressIndicator()),
-                    CachedNetworkImage(
-                      imageUrl: trip.tripImageUrl!,
-                      cacheKey: trip.tripImageKey,
-                      width: double.maxFinite,
-                      height: 500,
-                      alignment: Alignment.topCenter,
-                      fit: BoxFit.fill,
-                    ),
-                  ])
+                ? Stack(
+                    children: [
+                      const Center(child: CircularProgressIndicator()),
+                      CachedNetworkImage(
+                        imageUrl: trip.tripImageUrl!,
+                        cacheKey: trip.tripImageKey,
+                        width: double.maxFinite,
+                        height: 500,
+                        alignment: Alignment.topCenter,
+                        fit: BoxFit.fill,
+                      ),
+                    ],
+                  )
                 : Image.asset(
                     'images/amplify.png',
                     fit: BoxFit.contain,

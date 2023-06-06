@@ -12,7 +12,7 @@ part 'activity_controller.g.dart';
 class ActivityController extends _$ActivityController {
   Future<Activity> _fetchActivity(String activityId) async {
     final activitiesRepository = ref.read(activitiesRepositoryProvider);
-    return await activitiesRepository.getActivity(activityId);
+    return activitiesRepository.getActivity(activityId);
   }
 
   @override
@@ -26,8 +26,10 @@ class ActivityController extends _$ActivityController {
       final imageUrl =
           await ref.read(storageServiceProvider).getImageUrl(fileKey);
       final updatedActivity = activity.copyWith(
-          activityImageKey: fileKey, activityImageUrl: imageUrl);
-      updateActivity(updatedActivity);
+        activityImageKey: fileKey,
+        activityImageUrl: imageUrl,
+      );
+      await updateActivity(updatedActivity);
       ref.read(storageServiceProvider).resetUploadProgress();
     }
   }
@@ -35,7 +37,7 @@ class ActivityController extends _$ActivityController {
   Future<String> getFileUrl(Activity activity) async {
     final fileKey = activity.activityImageKey;
 
-    return await ref.read(storageServiceProvider).getImageUrl(fileKey!);
+    return ref.read(storageServiceProvider).getImageUrl(fileKey!);
   }
 
   ValueNotifier<double> uploadProgress() {

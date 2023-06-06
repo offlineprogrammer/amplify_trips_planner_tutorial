@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:amplify_trips_planner/models/ModelProvider.dart';
 import 'package:amplify_trips_planner/common/utils/colors.dart' as constants;
+import 'package:amplify_trips_planner/models/ModelProvider.dart';
+import 'package:flutter/material.dart';
 
 class ActivityCategoryIcon extends StatelessWidget {
   const ActivityCategoryIcon({

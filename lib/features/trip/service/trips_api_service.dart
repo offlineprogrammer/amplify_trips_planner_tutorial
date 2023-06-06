@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-
 import 'package:amplify_trips_planner/models/ModelProvider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -24,12 +23,15 @@ class TripsAPIService {
         safePrint('getTrips errors: ${response.errors}');
         return const [];
       }
-      trips.sort((a, b) =>
-          a!.startDate.getDateTime().compareTo(b!.startDate.getDateTime()));
+      trips.sort(
+        (a, b) =>
+            a!.startDate.getDateTime().compareTo(b!.startDate.getDateTime()),
+      );
       return trips
           .map((e) => e as Trip)
-          .where((element) =>
-              element.endDate.getDateTime().isAfter(DateTime.now()))
+          .where(
+            (element) => element.endDate.getDateTime().isAfter(DateTime.now()),
+          )
           .toList();
     } on Exception catch (error) {
       safePrint('getTrips failed: $error');
@@ -48,12 +50,15 @@ class TripsAPIService {
         safePrint('getPastTrips errors: ${response.errors}');
         return const [];
       }
-      trips.sort((a, b) =>
-          a!.startDate.getDateTime().compareTo(b!.startDate.getDateTime()));
+      trips.sort(
+        (a, b) =>
+            a!.startDate.getDateTime().compareTo(b!.startDate.getDateTime()),
+      );
       return trips
           .map((e) => e as Trip)
-          .where((element) =>
-              element.endDate.getDateTime().isBefore(DateTime.now()))
+          .where(
+            (element) => element.endDate.getDateTime().isBefore(DateTime.now()),
+          )
           .toList();
     } on Exception catch (error) {
       safePrint('getPastTrips failed: $error');
@@ -113,8 +118,7 @@ class TripsAPIService {
       return trip;
     } on Exception catch (error) {
       safePrint('getTrip failed: $error');
-
-      throw getTrip;
+      rethrow;
     }
   }
 }

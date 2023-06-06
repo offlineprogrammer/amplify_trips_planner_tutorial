@@ -1,19 +1,18 @@
 import 'dart:io';
 
+import 'package:amplify_trips_planner/common/navigation/router/routes.dart';
+import 'package:amplify_trips_planner/common/ui/upload_progress_dialog.dart';
+import 'package:amplify_trips_planner/common/utils/colors.dart' as constants;
 import 'package:amplify_trips_planner/common/utils/date_time_formatter.dart';
 import 'package:amplify_trips_planner/features/activity/controller/activities_list.dart';
+import 'package:amplify_trips_planner/features/activity/controller/activity_controller.dart';
+import 'package:amplify_trips_planner/features/activity/ui/activity_category_icon.dart';
+import 'package:amplify_trips_planner/features/activity/ui/activity_page/delete_activity_dialog.dart';
+import 'package:amplify_trips_planner/models/ModelProvider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:amplify_trips_planner/common/navigation/router/routes.dart';
-import 'package:amplify_trips_planner/common/ui/upload_progress_dialog.dart';
-import 'package:amplify_trips_planner/features/activity/controller/activity_controller.dart';
-import 'package:amplify_trips_planner/common/utils/colors.dart' as constants;
-import 'package:amplify_trips_planner/features/activity/ui/activity_category_icon.dart';
-import 'package:amplify_trips_planner/features/activity/ui/activity_page/delete_activity_dialog.dart';
-
-import 'package:amplify_trips_planner/models/ModelProvider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ActivityPage extends ConsumerWidget {
@@ -25,12 +24,16 @@ class ActivityPage extends ConsumerWidget {
   final String activityId;
 
   Future<bool> deleteActivity(
-      BuildContext context, WidgetRef ref, Activity activity) async {
+    BuildContext context,
+    WidgetRef ref,
+    Activity activity,
+  ) async {
     var value = await showDialog<bool>(
-        context: context,
-        builder: (BuildContext context) {
-          return const DeleteActivityDialog();
-        });
+      context: context,
+      builder: (BuildContext context) {
+        return const DeleteActivityDialog();
+      },
+    );
     value ??= false;
 
     if (value) {
@@ -51,7 +54,7 @@ class ActivityPage extends ConsumerWidget {
         .watch(activityControllerProvider(activity.id).notifier)
         .getFileUrl(activity);
 
-    final Uri url = Uri.parse(fileUrl);
+    final url = Uri.parse(fileUrl);
     await launchUrl(url);
   }
 
@@ -60,7 +63,7 @@ class ActivityPage extends ConsumerWidget {
     required WidgetRef ref,
     required Activity activity,
   }) async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
+    final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['jpg', 'pdf', 'png'],
     );
@@ -69,16 +72,17 @@ class ActivityPage extends ConsumerWidget {
       return false;
     }
 
-    PlatformFile platformFile = result.files.first;
+    final platformFile = result.files.first;
 
     final file = File(platformFile.path!);
     if (context.mounted) {
       showDialog<String>(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return const UploadProgressDialog();
-          });
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return const UploadProgressDialog();
+        },
+      ).ignore();
       await ref
           .watch(activityControllerProvider(activity.id).notifier)
           .uploadFile(file, activity);
@@ -91,111 +95,92 @@ class ActivityPage extends ConsumerWidget {
     final activityValue = ref.watch(activityControllerProvider(activityId));
 
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text(
-            'Amplify Trips Planner',
-          ),
-          leading: activityValue.when(
-            data: (activity) => IconButton(
-              onPressed: () {
-                context.goNamed(
-                  AppRoute.trip.name,
-                  pathParameters: {'id': activity.trip.id},
-                );
-              },
-              icon: const Icon(Icons.arrow_back),
-            ),
-            error: (e, st) => const Placeholder(),
-            loading: () => const SizedBox(),
-          ),
-          backgroundColor: const Color(constants.primaryColorDark),
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text(
+          'Amplify Trips Planner',
         ),
-        body: activityValue.when(
-          data: (activity) => ListView(
-            children: [
-              Card(
-                child: ListTile(
-                  leading:
-                      ActivityCategoryIcon(activityCategory: activity.category),
-                  title: Text(
-                    activity.activityName,
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  subtitle: Text(activity.category.name),
-                ),
-              ),
-              ListTile(
-                dense: true,
+        leading: activityValue.when(
+          data: (activity) => IconButton(
+            onPressed: () {
+              context.goNamed(
+                AppRoute.trip.name,
+                pathParameters: {'id': activity.trip.id},
+              );
+            },
+            icon: const Icon(Icons.arrow_back),
+          ),
+          error: (e, st) => const Placeholder(),
+          loading: () => const SizedBox(),
+        ),
+        backgroundColor: const Color(constants.primaryColorDark),
+      ),
+      body: activityValue.when(
+        data: (activity) => ListView(
+          children: [
+            Card(
+              child: ListTile(
+                leading:
+                    ActivityCategoryIcon(activityCategory: activity.category),
                 title: Text(
-                  'Activity Date',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleSmall!
-                      .copyWith(color: Colors.white),
+                  activity.activityName,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
-                tileColor: Colors.grey,
+                subtitle: Text(activity.category.name),
               ),
-              Card(
-                child: ListTile(
-                  title: Text(
-                    activity.activityDate.getDateTime().format('EE MMMM dd'),
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  subtitle: Text(
-                    activity.activityTime!.getDateTime().format('hh:mm a'),
-                  ),
-                ),
+            ),
+            ListTile(
+              dense: true,
+              title: Text(
+                'Activity Date',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleSmall!
+                    .copyWith(color: Colors.white),
               ),
-              ListTile(
-                dense: true,
+              tileColor: Colors.grey,
+            ),
+            Card(
+              child: ListTile(
                 title: Text(
-                  'Documents',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleSmall!
-                      .copyWith(color: Colors.white),
+                  activity.activityDate.getDateTime().format('EE MMMM dd'),
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
-                tileColor: Colors.grey,
+                subtitle: Text(
+                  activity.activityTime!.getDateTime().format('hh:mm a'),
+                ),
               ),
-              Card(
-                child: activity.activityImageUrl != null
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          TextButton(
-                            style: TextButton.styleFrom(
-                              textStyle: const TextStyle(fontSize: 20),
-                            ),
-                            onPressed: () {
-                              openFile(
-                                context: context,
-                                ref: ref,
-                                activity: activity,
-                              );
-                            },
-                            child: const Text('Open'),
+            ),
+            ListTile(
+              dense: true,
+              title: Text(
+                'Documents',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleSmall!
+                    .copyWith(color: Colors.white),
+              ),
+              tileColor: Colors.grey,
+            ),
+            Card(
+              child: activity.activityImageUrl != null
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            textStyle: const TextStyle(fontSize: 20),
                           ),
-                          TextButton(
-                            style: TextButton.styleFrom(
-                              textStyle: const TextStyle(fontSize: 20),
-                            ),
-                            onPressed: () {
-                              uploadFile(
-                                context: context,
-                                activity: activity,
-                                ref: ref,
-                              ).then((value) {
-                                Navigator.of(context, rootNavigator: true)
-                                    .pop();
-                              });
-                            },
-                            child: const Text('Replace'),
-                          ),
-                        ],
-                      )
-                    : ListTile(
-                        title: TextButton(
+                          onPressed: () {
+                            openFile(
+                              context: context,
+                              ref: ref,
+                              activity: activity,
+                            );
+                          },
+                          child: const Text('Open'),
+                        ),
+                        TextButton(
                           style: TextButton.styleFrom(
                             textStyle: const TextStyle(fontSize: 20),
                           ),
@@ -204,67 +189,86 @@ class ActivityPage extends ConsumerWidget {
                               context: context,
                               activity: activity,
                               ref: ref,
-                            ).then(
-                              (value) => value ? context.pop() : null,
-                            );
-                            // Navigator.of(context, rootNavigator: true)
-                            //     .pop());
+                            ).then((value) {
+                              Navigator.of(context, rootNavigator: true).pop();
+                            });
                           },
-                          child: const Text('Attach a PDF or photo'),
+                          child: const Text('Replace'),
                         ),
+                      ],
+                    )
+                  : ListTile(
+                      title: TextButton(
+                        style: TextButton.styleFrom(
+                          textStyle: const TextStyle(fontSize: 20),
+                        ),
+                        onPressed: () {
+                          uploadFile(
+                            context: context,
+                            activity: activity,
+                            ref: ref,
+                          ).then(
+                            (value) => value ? context.pop() : null,
+                          );
+                          // Navigator.of(context, rootNavigator: true)
+                          //     .pop());
+                        },
+                        child: const Text('Attach a PDF or photo'),
                       ),
-              ),
-              const ListTile(
-                dense: true,
-                tileColor: Colors.grey,
-                visualDensity: VisualDensity(vertical: -4),
-              ),
-              Card(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        textStyle: const TextStyle(fontSize: 20),
-                      ),
-                      onPressed: () {
-                        context.goNamed(
-                          AppRoute.editActivity.name,
-                          pathParameters: {'id': activity.id},
-                          extra: activity,
-                        );
-                      },
-                      child: const Text('Edit'),
                     ),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        textStyle: const TextStyle(fontSize: 20),
-                      ),
-                      onPressed: () {
-                        deleteActivity(context, ref, activity).then(
-                          (value) {
-                            if (value) {
-                              context.goNamed(
-                                AppRoute.trip.name,
-                                pathParameters: {'id': activity.trip.id},
-                              );
-                            }
-                          },
-                        );
-                      },
-                      child: const Text('Delete'),
+            ),
+            const ListTile(
+              dense: true,
+              tileColor: Colors.grey,
+              visualDensity: VisualDensity(vertical: -4),
+            ),
+            Card(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      textStyle: const TextStyle(fontSize: 20),
                     ),
-                  ],
-                ),
-              )
-            ],
-          ),
-          error: (e, st) => const Center(
-            child: Text('Error'),
-          ),
-          loading: () => const Center(
-            child: CircularProgressIndicator(),
-          ),
-        ));
+                    onPressed: () {
+                      context.goNamed(
+                        AppRoute.editActivity.name,
+                        pathParameters: {'id': activity.id},
+                        extra: activity,
+                      );
+                    },
+                    child: const Text('Edit'),
+                  ),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      textStyle: const TextStyle(fontSize: 20),
+                    ),
+                    onPressed: () {
+                      deleteActivity(context, ref, activity).then(
+                        (value) {
+                          if (value) {
+                            context.goNamed(
+                              AppRoute.trip.name,
+                              pathParameters: {'id': activity.trip.id},
+                            );
+                          }
+                        },
+                      );
+                    },
+                    child: const Text('Delete'),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+        error: (e, st) => const Center(
+          child: Text('Error'),
+        ),
+        loading: () => const Center(
+          child: CircularProgressIndicator(),
+        ),
+      ),
+    );
   }
 }

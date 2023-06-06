@@ -1,14 +1,13 @@
+import 'package:amplify_trips_planner/common/navigation/router/routes.dart';
 import 'package:amplify_trips_planner/common/ui/bottomsheet_text_form_field.dart';
+import 'package:amplify_trips_planner/common/utils/colors.dart' as constants;
 import 'package:amplify_trips_planner/common/utils/date_time_formatter.dart';
 import 'package:amplify_trips_planner/features/activity/controller/activities_list.dart';
 import 'package:amplify_trips_planner/features/trip/controller/trip_controller.dart';
+import 'package:amplify_trips_planner/models/ModelProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:amplify_trips_planner/common/navigation/router/routes.dart';
-
-import 'package:amplify_trips_planner/models/ModelProvider.dart';
-import 'package:amplify_trips_planner/common/utils/colors.dart' as constants;
 
 class AddActivityPage extends ConsumerWidget {
   AddActivityPage({
@@ -52,10 +51,11 @@ class AddActivityPage extends ConsumerWidget {
             key: formGlobalKey,
             child: Container(
               padding: EdgeInsets.only(
-                  top: 15,
-                  left: 15,
-                  right: 15,
-                  bottom: MediaQuery.of(context).viewInsets.bottom + 15),
+                top: 15,
+                left: 15,
+                right: 15,
+                bottom: MediaQuery.of(context).viewInsets.bottom + 15,
+              ),
               width: double.infinity,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -93,7 +93,7 @@ class AddActivityPage extends ConsumerWidget {
                     controller: activityDateController,
                     keyboardType: TextInputType.datetime,
                     onTap: () async {
-                      DateTime? pickedDate = await showDatePicker(
+                      final pickedDate = await showDatePicker(
                         context: context,
                         initialDate: DateTime.parse(trip.startDate.toString()),
                         firstDate: DateTime.parse(trip.startDate.toString()),
@@ -135,30 +135,31 @@ class AddActivityPage extends ConsumerWidget {
                     height: 20,
                   ),
                   TextButton(
-                      child: const Text('OK'),
-                      onPressed: () async {
-                        final currentState = formGlobalKey.currentState;
-                        if (currentState == null) {
-                          return;
-                        }
-                        if (currentState.validate()) {
-                          ref
-                              .watch(activitiesListProvider(trip.id).notifier)
-                              .add(
-                                name: activityNameController.text,
-                                activityDate: activityDateController.text,
-                                activityTime: activityTime,
-                                category: activityCategory,
-                                trip: trip,
-                              );
+                    child: const Text('OK'),
+                    onPressed: () async {
+                      final currentState = formGlobalKey.currentState;
+                      if (currentState == null) {
+                        return;
+                      }
+                      if (currentState.validate()) {
+                        ref
+                            .watch(activitiesListProvider(trip.id).notifier)
+                            .add(
+                              name: activityNameController.text,
+                              activityDate: activityDateController.text,
+                              activityTime: activityTime,
+                              category: activityCategory,
+                              trip: trip,
+                            )
+                            .ignore();
 
-                          context.goNamed(
-                            AppRoute.trip.name,
-                            pathParameters: {'id': trip.id},
-                          );
-                        }
-                      } //,
-                      ),
+                        context.goNamed(
+                          AppRoute.trip.name,
+                          pathParameters: {'id': trip.id},
+                        );
+                      }
+                    }, //,
+                  ),
                 ],
               ),
             ),

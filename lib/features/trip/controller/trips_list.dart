@@ -1,8 +1,10 @@
 import 'dart:async';
+
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_trips_planner/features/trip/data/trips_repository.dart';
 import 'package:amplify_trips_planner/models/ModelProvider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 part 'trips_list.g.dart';
 
 @riverpod
@@ -24,7 +26,7 @@ class TripsList extends _$TripsList {
     required String startDate,
     required String endDate,
   }) async {
-    Trip trip = Trip(
+    final trip = Trip(
       tripName: name,
       destination: destination,
       startDate: TemporalDate(DateTime.parse(startDate)),

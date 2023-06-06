@@ -1,19 +1,17 @@
 import 'dart:io';
 
+import 'package:amplify_trips_planner/common/navigation/router/routes.dart';
+import 'package:amplify_trips_planner/common/ui/upload_progress_dialog.dart';
+import 'package:amplify_trips_planner/common/utils/colors.dart' as constants;
 import 'package:amplify_trips_planner/features/trip/controller/trip_controller.dart';
 import 'package:amplify_trips_planner/features/trip/controller/trips_list.dart';
+import 'package:amplify_trips_planner/features/trip/ui/trip_page/delete_trip_dialog.dart';
+import 'package:amplify_trips_planner/models/Trip.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
-
-import 'package:amplify_trips_planner/common/navigation/router/routes.dart';
-import 'package:amplify_trips_planner/common/utils/colors.dart' as constants;
-
-import 'package:amplify_trips_planner/models/Trip.dart';
-import 'package:amplify_trips_planner/features/trip/ui/trip_page/delete_trip_dialog.dart';
-import 'package:amplify_trips_planner/common/ui/upload_progress_dialog.dart';
 
 class SelectedTripCard extends ConsumerWidget {
   const SelectedTripCard({
@@ -35,12 +33,13 @@ class SelectedTripCard extends ConsumerWidget {
     }
     final file = File(pickedFile.path);
     if (context.mounted) {
-      showDialog<String>(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return const UploadProgressDialog();
-          });
+      await showDialog<String>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return const UploadProgressDialog();
+        },
+      );
 
       await ref
           .watch(tripControllerProvider(trip.id).notifier)
@@ -51,12 +50,16 @@ class SelectedTripCard extends ConsumerWidget {
   }
 
   Future<bool> deleteTrip(
-      BuildContext context, WidgetRef ref, Trip trip) async {
+    BuildContext context,
+    WidgetRef ref,
+    Trip trip,
+  ) async {
     var value = await showDialog<bool>(
-        context: context,
-        builder: (BuildContext context) {
-          return const DeleteTripDialog();
-        });
+      context: context,
+      builder: (BuildContext context) {
+        return const DeleteTripDialog();
+      },
+    );
     value ??= false;
 
     if (value) {
@@ -70,7 +73,7 @@ class SelectedTripCard extends ConsumerWidget {
     return Card(
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
+        borderRadius: BorderRadius.circular(15),
       ),
       elevation: 5,
       child: Column(
@@ -93,17 +96,19 @@ class SelectedTripCard extends ConsumerWidget {
             height: 150,
 
             child: trip.tripImageUrl != null
-                ? Stack(children: [
-                    const Center(child: CircularProgressIndicator()),
-                    CachedNetworkImage(
-                      cacheKey: trip.tripImageKey,
-                      imageUrl: trip.tripImageUrl!,
-                      width: double.maxFinite,
-                      height: 500,
-                      alignment: Alignment.topCenter,
-                      fit: BoxFit.fill,
-                    ),
-                  ])
+                ? Stack(
+                    children: [
+                      const Center(child: CircularProgressIndicator()),
+                      CachedNetworkImage(
+                        cacheKey: trip.tripImageKey,
+                        imageUrl: trip.tripImageUrl!,
+                        width: double.maxFinite,
+                        height: 500,
+                        alignment: Alignment.topCenter,
+                        fit: BoxFit.fill,
+                      ),
+                    ],
+                  )
                 : Image.asset(
                     'images/amplify.png',
                     fit: BoxFit.contain,

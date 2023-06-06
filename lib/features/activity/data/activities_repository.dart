@@ -3,8 +3,7 @@ import 'package:amplify_trips_planner/models/ModelProvider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final activitiesRepositoryProvider = Provider<ActivitiesRepository>((ref) {
-  ActivitiesAPIService activitiesAPIService =
-      ref.read(activitiesAPIServiceProvider);
+  final activitiesAPIService = ref.read(activitiesAPIServiceProvider);
   return ActivitiesRepository(activitiesAPIService);
 });
 
