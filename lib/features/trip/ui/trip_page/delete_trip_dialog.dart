@@ -12,10 +12,11 @@ class DeleteTripDialog extends StatelessWidget {
       content: const Text('Delete this trip?'),
       actions: [
         TextButton(
-            onPressed: () async {
-              Navigator.of(context).pop(true);
-            },
-            child: const Text('Yes')),
+          onPressed: () async {
+            Navigator.of(context).pop(true);
+          },
+          child: const Text('Yes'),
+        ),
         TextButton(
           onPressed: () {
             Navigator.of(context).pop(false);

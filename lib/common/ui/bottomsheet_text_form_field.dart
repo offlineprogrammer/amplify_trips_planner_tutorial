@@ -12,7 +12,7 @@ class BottomSheetTextFormField extends StatelessWidget {
   final String labelText;
   final TextEditingController controller;
   final TextInputType keyboardType;
-  final Function()? onTap;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {

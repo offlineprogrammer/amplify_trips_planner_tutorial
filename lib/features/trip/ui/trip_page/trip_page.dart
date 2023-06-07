@@ -1,14 +1,12 @@
+import 'package:amplify_trips_planner/common/navigation/router/routes.dart';
+import 'package:amplify_trips_planner/common/ui/the_navigation_drawer.dart';
+import 'package:amplify_trips_planner/common/utils/colors.dart' as constants;
+import 'package:amplify_trips_planner/features/activity/ui/activities_list/activities_list.dart';
 import 'package:amplify_trips_planner/features/trip/controller/trip_controller.dart';
+import 'package:amplify_trips_planner/features/trip/ui/trip_page/selected_trip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
-import 'package:amplify_trips_planner/common/navigation/router/routes.dart';
-
-import 'package:amplify_trips_planner/common/utils/colors.dart' as constants;
-import 'package:amplify_trips_planner/features/trip/ui/trip_page/selected_trip_card.dart';
-import 'package:amplify_trips_planner/features/activity/ui/activities_list/activities_list.dart';
-import 'package:amplify_trips_planner/common/ui/the_navigation_drawer.dart';
 
 class TripPage extends ConsumerWidget {
   const TripPage({
@@ -94,10 +92,11 @@ class TripPage extends ConsumerWidget {
             children: [
               Text(e.toString()),
               TextButton(
-                  onPressed: () async {
-                    ref.invalidate(tripControllerProvider(tripId));
-                  },
-                  child: const Text('Try again')),
+                onPressed: () async {
+                  ref.invalidate(tripControllerProvider(tripId));
+                },
+                child: const Text('Try again'),
+              ),
             ],
           ),
         ),

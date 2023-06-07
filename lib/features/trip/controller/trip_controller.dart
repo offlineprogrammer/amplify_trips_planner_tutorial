@@ -6,13 +6,14 @@ import 'package:amplify_trips_planner/features/trip/data/trips_repository.dart';
 import 'package:amplify_trips_planner/models/ModelProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 part 'trip_controller.g.dart';
 
 @riverpod
 class TripController extends _$TripController {
   Future<Trip> _fetchTrip(String tripId) async {
     final tripsRepository = ref.read(tripsRepositoryProvider);
-    return await tripsRepository.getTrip(tripId);
+    return tripsRepository.getTrip(tripId);
   }
 
   @override

@@ -1,10 +1,9 @@
 import 'package:amplify_trips_planner/features/profile/service/profile_api_service.dart';
+import 'package:amplify_trips_planner/models/ModelProvider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:amplify_trips_planner/models/ModelProvider.dart';
-
 final profileRepositoryProvider = Provider<ProfileRepository>((ref) {
-  ProfileAPIService profileAPIService = ref.read(profileAPIServiceProvider);
+  final profileAPIService = ref.read(profileAPIServiceProvider);
   return ProfileRepository(profileAPIService);
 });
 

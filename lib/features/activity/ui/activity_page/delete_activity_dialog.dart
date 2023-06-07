@@ -12,15 +12,17 @@ class DeleteActivityDialog extends StatelessWidget {
       content: const Text('Delete this activity?'),
       actions: [
         TextButton(
-            onPressed: () async {
-              Navigator.of(context).pop(true);
-            },
-            child: const Text('Yes')),
+          onPressed: () async {
+            Navigator.of(context).pop(true);
+          },
+          child: const Text('Yes'),
+        ),
         TextButton(
-            onPressed: () {
-              Navigator.of(context).pop(false);
-            },
-            child: const Text('No'))
+          onPressed: () {
+            Navigator.of(context).pop(false);
+          },
+          child: const Text('No'),
+        )
       ],
     );
   }

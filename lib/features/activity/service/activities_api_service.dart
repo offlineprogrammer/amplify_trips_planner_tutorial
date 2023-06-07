@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_trips_planner/models/ModelProvider.dart';
@@ -26,9 +27,11 @@ class ActivitiesAPIService {
         safePrint('errors: ${response.errors}');
         return const [];
       }
-      activites.sort((a, b) => a!.activityDate
-          .getDateTime()
-          .compareTo(b!.activityDate.getDateTime()));
+      activites.sort(
+        (a, b) => a!.activityDate
+            .getDateTime()
+            .compareTo(b!.activityDate.getDateTime()),
+      );
       return activites.map((e) => e as Activity).toList();
     } on Exception catch (error) {
       safePrint('getActivitiesForTrip failed: $error');
@@ -87,7 +90,7 @@ class ActivitiesAPIService {
       return activity;
     } on Exception catch (error) {
       safePrint('getActivity failed: $error');
-      throw Exception;
+      rethrow;
     }
   }
 }

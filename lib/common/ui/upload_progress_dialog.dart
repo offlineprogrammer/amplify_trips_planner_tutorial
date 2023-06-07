@@ -1,10 +1,9 @@
 import 'package:amplify_trips_planner/features/trip/controller/trip_controller.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class UploadProgressDialog extends ConsumerWidget {
-  const UploadProgressDialog({Key? key}) : super(key: key);
+  const UploadProgressDialog({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -25,14 +24,15 @@ class UploadProgressDialog extends ConsumerWidget {
                 ),
                 Text('${(double.parse(value.toString()) * 100).toInt()} %'),
                 Container(
-                    alignment: Alignment.topCenter,
-                    margin: const EdgeInsets.all(20),
-                    child: LinearProgressIndicator(
-                      value: double.parse(value.toString()),
-                      backgroundColor: Colors.grey,
-                      color: Colors.purple,
-                      minHeight: 10,
-                    )),
+                  alignment: Alignment.topCenter,
+                  margin: const EdgeInsets.all(20),
+                  child: LinearProgressIndicator(
+                    value: double.parse(value.toString()),
+                    backgroundColor: Colors.grey,
+                    color: Colors.purple,
+                    minHeight: 10,
+                  ),
+                ),
               ],
             );
           },

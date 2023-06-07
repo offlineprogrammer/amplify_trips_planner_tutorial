@@ -33,15 +33,19 @@ class ModelProvider implements ModelProviderInterface {
   @override
   String version = "dd0adad0d3bb0b223c3b4be681aea544";
   @override
-  List<ModelSchema> modelSchemas = [Activity.schema, Profile.schema, Trip.schema];
+  List<ModelSchema> modelSchemas = [
+    Activity.schema,
+    Profile.schema,
+    Trip.schema
+  ];
   static final ModelProvider _instance = ModelProvider();
   @override
   List<ModelSchema> customTypeSchemas = [];
 
   static ModelProvider get instance => _instance;
-  
+
   ModelType getModelTypeByModelName(String modelName) {
-    switch(modelName) {
+    switch (modelName) {
       case "Activity":
         return Activity.classType;
       case "Profile":
@@ -49,7 +53,9 @@ class ModelProvider implements ModelProviderInterface {
       case "Trip":
         return Trip.classType;
       default:
-        throw Exception("Failed to find model in model provider for model name: " + modelName);
+        throw Exception(
+            "Failed to find model in model provider for model name: " +
+                modelName);
     }
   }
 }

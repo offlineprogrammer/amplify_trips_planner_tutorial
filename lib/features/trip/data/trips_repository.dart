@@ -1,10 +1,9 @@
 import 'package:amplify_trips_planner/features/trip/service/trips_api_service.dart';
-
 import 'package:amplify_trips_planner/models/Trip.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final tripsRepositoryProvider = Provider<TripsRepository>((ref) {
-  TripsAPIService tripsAPIService = ref.read(tripsAPIServiceProvider);
+  final tripsAPIService = ref.read(tripsAPIServiceProvider);
   return TripsRepository(tripsAPIService);
 });
 

@@ -1,9 +1,9 @@
+import 'package:amplify_trips_planner/common/navigation/router/routes.dart';
+import 'package:amplify_trips_planner/common/utils/colors.dart' as constants;
 import 'package:amplify_trips_planner/features/trip/ui/trip_gridview_item/trip_gridview_item_card.dart';
 import 'package:amplify_trips_planner/models/ModelProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:amplify_trips_planner/common/navigation/router/routes.dart';
-import 'package:amplify_trips_planner/common/utils/colors.dart' as constants;
 
 class TripGridViewItem extends StatelessWidget {
   const TripGridViewItem({
@@ -32,7 +32,8 @@ class TripGridViewItem extends StatelessWidget {
               colorFilter: const ColorFilter.matrix(constants.greyoutMatrix),
               child: TripGridViewItemCard(
                 trip: trip,
-              ))
+              ),
+            )
           : TripGridViewItemCard(
               trip: trip,
             ),

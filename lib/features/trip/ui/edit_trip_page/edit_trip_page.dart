@@ -1,15 +1,13 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_trips_planner/common/navigation/router/routes.dart';
 import 'package:amplify_trips_planner/common/ui/bottomsheet_text_form_field.dart';
+import 'package:amplify_trips_planner/common/utils/colors.dart' as constants;
 import 'package:amplify_trips_planner/common/utils/date_time_formatter.dart';
 import 'package:amplify_trips_planner/features/trip/controller/trip_controller.dart';
-
 import 'package:amplify_trips_planner/models/ModelProvider.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:amplify_trips_planner/common/utils/colors.dart' as constants;
 
 class EditTripPage extends ConsumerWidget {
   EditTripPage({
@@ -25,10 +23,12 @@ class EditTripPage extends ConsumerWidget {
     final tripNameController = TextEditingController(text: trip.tripName);
     final destinationController = TextEditingController(text: trip.destination);
     final startDateController = TextEditingController(
-        text: trip.startDate.getDateTime().format('yyyy-MM-dd'));
+      text: trip.startDate.getDateTime().format('yyyy-MM-dd'),
+    );
 
     final endDateController = TextEditingController(
-        text: trip.endDate.getDateTime().format('yyyy-MM-dd'));
+      text: trip.endDate.getDateTime().format('yyyy-MM-dd'),
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -52,10 +52,11 @@ class EditTripPage extends ConsumerWidget {
           key: formGlobalKey,
           child: Container(
             padding: EdgeInsets.only(
-                top: 15,
-                left: 15,
-                right: 15,
-                bottom: MediaQuery.of(context).viewInsets.bottom + 15),
+              top: 15,
+              left: 15,
+              right: 15,
+              bottom: MediaQuery.of(context).viewInsets.bottom + 15,
+            ),
             width: double.infinity,
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -82,11 +83,12 @@ class EditTripPage extends ConsumerWidget {
                   controller: startDateController,
                   keyboardType: TextInputType.datetime,
                   onTap: () async {
-                    DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(2000),
-                        lastDate: DateTime(2101));
+                    final pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime(2101),
+                    );
 
                     if (pickedDate != null) {
                       startDateController.text =
@@ -103,11 +105,12 @@ class EditTripPage extends ConsumerWidget {
                   keyboardType: TextInputType.datetime,
                   onTap: () async {
                     if (startDateController.text.isNotEmpty) {
-                      DateTime? pickedDate = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.parse(startDateController.text),
-                          firstDate: DateTime.parse(startDateController.text),
-                          lastDate: DateTime(2101));
+                      final pickedDate = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.parse(startDateController.text),
+                        firstDate: DateTime.parse(startDateController.text),
+                        lastDate: DateTime(2101),
+                      );
 
                       if (pickedDate != null) {
                         endDateController.text =
@@ -120,34 +123,37 @@ class EditTripPage extends ConsumerWidget {
                   height: 20,
                 ),
                 TextButton(
-                    child: const Text('OK'),
-                    onPressed: () async {
-                      final currentState = formGlobalKey.currentState;
-                      if (currentState == null) {
-                        return;
-                      }
-                      if (currentState.validate()) {
-                        final updatedTrip = trip.copyWith(
-                          tripName: tripNameController.text,
-                          destination: destinationController.text,
-                          startDate: TemporalDate(
-                              DateTime.parse(startDateController.text)),
-                          endDate: TemporalDate(
-                              DateTime.parse(endDateController.text)),
-                        );
+                  child: const Text('OK'),
+                  onPressed: () async {
+                    final currentState = formGlobalKey.currentState;
+                    if (currentState == null) {
+                      return;
+                    }
+                    if (currentState.validate()) {
+                      final updatedTrip = trip.copyWith(
+                        tripName: tripNameController.text,
+                        destination: destinationController.text,
+                        startDate: TemporalDate(
+                          DateTime.parse(startDateController.text),
+                        ),
+                        endDate: TemporalDate(
+                          DateTime.parse(endDateController.text),
+                        ),
+                      );
 
-                        ref
-                            .watch(tripControllerProvider(trip.id).notifier)
-                            .updateTrip(updatedTrip);
+                      ref
+                          .watch(tripControllerProvider(trip.id).notifier)
+                          .updateTrip(updatedTrip)
+                          .ignore();
 
-                        context.goNamed(
-                          AppRoute.trip.name,
-                          pathParameters: {'id': trip.id},
-                          extra: updatedTrip,
-                        );
-                      }
-                    } //,
-                    ),
+                      context.goNamed(
+                        AppRoute.trip.name,
+                        pathParameters: {'id': trip.id},
+                        extra: updatedTrip,
+                      );
+                    }
+                  }, //,
+                ),
               ],
             ),
           ),

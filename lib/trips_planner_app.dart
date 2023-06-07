@@ -1,12 +1,12 @@
-import 'package:amplify_trips_planner/common/navigation/router/router.dart';
-import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_trips_planner/common/navigation/router/router.dart';
 import 'package:amplify_trips_planner/common/utils/colors.dart' as constants;
+import 'package:flutter/material.dart';
 
 class TripsPlannerApp extends StatelessWidget {
   const TripsPlannerApp({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
