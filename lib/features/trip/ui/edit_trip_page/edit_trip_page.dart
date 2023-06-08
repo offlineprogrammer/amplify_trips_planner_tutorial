@@ -141,16 +141,16 @@ class EditTripPage extends ConsumerWidget {
                         ),
                       );
 
-                      ref
+                      await ref
                           .watch(tripControllerProvider(trip.id).notifier)
-                          .updateTrip(updatedTrip)
-                          .ignore();
-
-                      context.goNamed(
-                        AppRoute.trip.name,
-                        pathParameters: {'id': trip.id},
-                        extra: updatedTrip,
-                      );
+                          .updateTrip(updatedTrip);
+                      if (context.mounted) {
+                        context.goNamed(
+                          AppRoute.trip.name,
+                          pathParameters: {'id': trip.id},
+                          extra: updatedTrip,
+                        );
+                      }
                     }
                   }, //,
                 ),

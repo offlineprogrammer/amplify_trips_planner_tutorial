@@ -182,17 +182,17 @@ class EditActivityPage extends ConsumerWidget {
                         ),
                       );
 
-                      ref
+                      await ref
                           .watch(
                             activityControllerProvider(activity.id).notifier,
                           )
-                          .updateActivity(updatedActivity)
-                          .ignore();
-
-                      context.goNamed(
-                        AppRoute.activity.name,
-                        pathParameters: {'id': activity.id},
-                      );
+                          .updateActivity(updatedActivity);
+                      if (context.mounted) {
+                        context.goNamed(
+                          AppRoute.activity.name,
+                          pathParameters: {'id': activity.id},
+                        );
+                      }
                     }
                   }, //,
                 ),

@@ -99,16 +99,16 @@ class AddTripBottomSheet extends ConsumerWidget {
                   return;
                 }
                 if (currentState.validate()) {
-                  ref
-                      .watch(tripsListProvider.notifier)
-                      .addTrip(
+                  await ref.watch(tripsListProvider.notifier).addTrip(
                         name: tripNameController.text,
                         destination: destinationController.text,
                         startDate: startDateController.text,
                         endDate: endDateController.text,
-                      )
-                      .ignore();
-                  context.pop();
+                      );
+
+                  if (context.mounted) {
+                    context.pop();
+                  }
                 }
               }, //,
             ),

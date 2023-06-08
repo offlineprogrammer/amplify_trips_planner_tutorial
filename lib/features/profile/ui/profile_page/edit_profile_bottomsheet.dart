@@ -78,12 +78,13 @@ class EditProfileBottomSheet extends ConsumerWidget {
                     lastName: lastNameController.text,
                     homeCity: homeCityController.text,
                   );
-                  ref
+                  await ref
                       .watch(profileControllerProvider.notifier)
-                      .updateProfile(updatedProfile)
-                      .ignore();
+                      .updateProfile(updatedProfile);
 
-                  context.pop();
+                  if (context.mounted) {
+                    context.pop();
+                  }
                 }
               }, //,
             ),

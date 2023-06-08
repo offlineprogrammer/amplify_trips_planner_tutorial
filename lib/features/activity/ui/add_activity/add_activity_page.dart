@@ -142,7 +142,7 @@ class AddActivityPage extends ConsumerWidget {
                         return;
                       }
                       if (currentState.validate()) {
-                        ref
+                        await ref
                             .watch(activitiesListProvider(trip.id).notifier)
                             .add(
                               name: activityNameController.text,
@@ -150,13 +150,13 @@ class AddActivityPage extends ConsumerWidget {
                               activityTime: activityTime,
                               category: activityCategory,
                               trip: trip,
-                            )
-                            .ignore();
-
-                        context.goNamed(
-                          AppRoute.trip.name,
-                          pathParameters: {'id': trip.id},
-                        );
+                            );
+                        if (context.mounted) {
+                          context.goNamed(
+                            AppRoute.trip.name,
+                            pathParameters: {'id': trip.id},
+                          );
+                        }
                       }
                     }, //,
                   ),
